@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "check-judge0": "node utils/checkJudge0.js",
+    "toggle-executor": "node utils/toggleExecutor.js",
+    "setup-judge0": "./setup-judge0.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "fs-extra": "^11.3.0",
+    "python-shell": "^5.0.0",
+    "temp": "^0.9.4",
+    "tmp": "^0.2.3",
+    "util": "^0.12.5",
+    "vm2": "^3.9.19"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

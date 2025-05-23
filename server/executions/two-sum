@@ -1,0 +1,25 @@
+/**
+ * Problem: Two Sum
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+function twoSum(nums, target) {
+    // Your code here
+    const seen = {}
+
+    for (let idx = 0; idx < nums.length; idx++) {
+        const num = nums[idx];
+        const required = target - num;
+        if (seen[required] !== undefined) {
+            return [seen[required], idx];
+        }
+
+        seen[num] = idx;
+    }
+
+    return [];
+}
+
+const result = twoSum([3,2,4], 6);
+console.log(result);

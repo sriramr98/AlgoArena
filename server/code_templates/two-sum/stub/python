@@ -1,0 +1,8 @@
+"""
+Problem: Two Sum
+Write your Python solution here
+"""
+def two_sum(nums, target):
+    # Your code here
+    
+    return [0, 0]  # Replace with your solution

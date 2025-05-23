@@ -1,0 +1,4 @@
+{user_code}
+
+result = twoSum({nums}, {target})
+print(result)

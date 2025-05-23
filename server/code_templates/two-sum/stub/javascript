@@ -1,0 +1,11 @@
+/**
+ * Problem: Two Sum
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+function twoSum(nums, target) {
+    // Your code here
+
+    return [0, 0]; // Replace with your solution
+}

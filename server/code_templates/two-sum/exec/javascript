@@ -1,0 +1,4 @@
+{user_code}
+
+const result = twoSum({nums}, {target});
+console.log(result);

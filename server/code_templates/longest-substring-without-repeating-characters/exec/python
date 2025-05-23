@@ -1,0 +1,4 @@
+{user_code}
+
+result = length_of_longest_substring({s})
+print(result)

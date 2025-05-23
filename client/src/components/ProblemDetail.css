@@ -1,0 +1,152 @@
+.problem-detail-container {
+  display: flex;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* Make sure PanelGroup takes the full width */
+.problem-detail-container > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.problem-description-panel,
+.code-editor-panel {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Resize handle styling */
+.resize-handle {
+  width: 6px;
+  background-color: #e0e0e0;
+  cursor: col-resize;
+  transition: background-color 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resize-handle::after {
+  content: '';
+  width: 2px;
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 1px;
+}
+
+.resize-handle:hover,
+.resize-handle[data-resize-handle-active] {
+  background-color: #2196F3;
+}
+
+.resize-handle:hover::after,
+.resize-handle[data-resize-handle-active]::after {
+  background-color: #fff;
+}
+
+.problem-description {
+  border-right: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+}
+
+.problem-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.problem-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  flex: 1;
+}
+
+.difficulty {
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.easy {
+  background-color: rgba(0, 175, 155, 0.1);
+  color: #00af9b;
+}
+
+.medium {
+  background-color: rgba(255, 184, 0, 0.1);
+  color: #ffb800;
+}
+
+.hard {
+  background-color: rgba(255, 45, 85, 0.1);
+  color: #ff2d55;
+}
+
+.problem-content {
+  line-height: 1.6;
+}
+
+.description p {
+  margin-bottom: 1rem;
+}
+
+.examples, .constraints {
+  margin-top: 2rem;
+}
+
+.example {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.example-input, .example-output, .example-explanation {
+  margin-bottom: 0.5rem;
+}
+
+.constraints ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.code-editor-container {
+  background-color: #2d2d2d;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.editor-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #444;
+}
+
+.editor-header h3 {
+  margin: 0;
+  color: white;
+}
+
+.loading, .error {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+.error {
+  color: #ff2d55;
+}
