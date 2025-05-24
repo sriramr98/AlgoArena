@@ -1,4 +1,7 @@
 {user_code}
 
+{input_declaration}
+
 const result = twoSum({nums}, {target});
+{print_result}
 console.log(result);

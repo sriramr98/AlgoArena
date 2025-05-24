@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
-const { executeCode } = require("./code_executors/codeExecutor"); // Original executor
+const codeJudge = require("./judge"); // Original executor
 const problems = require("./problems");
 
 const app = express();
@@ -89,7 +89,7 @@ app.post("/api/submit", async (req, res) => {
     }
 
     // Execute the code
-    const results = await executeCode(code, language, problem, preview);
+    const results = await codeJudge(code, problem, language, preview ? 2 : problem.testCases.length)
 
     // Return results
     res.json(results);

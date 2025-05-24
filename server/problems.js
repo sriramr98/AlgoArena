@@ -23,88 +23,55 @@ const problems = [
       "-10^9 <= target <= 10^9",
       "Only one valid answer exists.",
     ],
+    input: {
+      nums: {
+        type: "array",
+      },
+      target: {
+        type: "number",
+      },
+    },
+    output: {
+      type: "array",
+    },
+    functionName: "twoSum",
     executionMode: "return",
     comparisonMode: "unordered-array",
     testCases: [
       {
         input: {
-          nums: {
-            value: [2, 7, 11, 15],
-            type: "array",
-          },
-          target: {
-            value: 9,
-            type: "number",
-          },
+          nums: [2, 7, 11, 15],
+          target: 9,
         },
-        expected: {
-          value: [0, 1],
-          type: "array",
-        },
+        expected: [0, 1],
       },
       {
         input: {
-          nums: {
-            value: [3, 2, 4],
-            type: "array",
-          },
-          target: {
-            value: 6,
-            type: "number",
-          },
+          nums: [3, 2, 4],
+          target: 6,
         },
-        expected: {
-          value: [1, 2],
-          type: "array",
-        },
+        expected: [1, 2],
       },
       {
         input: {
-          nums: {
-            value: [3, 3],
-            type: "array",
-          },
-          target: {
-            value: 6,
-            type: "number",
-          },
+          nums: [3, 3],
+          target: 6,
         },
-        expected: {
-          value: [0, 1],
-          type: "array",
-        },
+        expected: [0, 1],
       },
       {
         input: {
-          nums: {
-            value: [1, 2, 3, 4, 5],
-            type: "array",
-          },
-          target: {
-            value: 9,
-            type: "number",
-          },
+          nums: [1, 2, 3, 4, 5],
+          target: 9,
         },
-        expected: {
-          value: [3, 4],
-          type: "array",
-        },
+        expected: [3, 4],
       },
       {
         input: {
-          nums: {
-            value: [0, 4, 3, 0],
-            type: "array",
-          },
-          target: {
-            value: 0,
-            type: "number",
-          },
+          nums: [0, 4, 3, 0],
+          target: 0,
         },
-        expected: {
-          value: [0, 3],
-          type: "array",
-        },
+        expected: [0, 3],
       },
     ],
   },
@@ -128,58 +95,43 @@ const problems = [
       "1 <= s.length <= 10^5",
       "s[i] is a printable ascii character.",
     ],
+    input: {
+      s: {
+        type: "array",
+        output: true
+      },
+    },
+    output: {
+      type: "array",
+    },
     testCases: [
       {
         input: {
-          s: {
-            value: ["h", "e", "l", "l", "o"],
-            type: "array",
-          },
+          s: ["h", "e", "l", "l", "o"],
         },
-        expected: {
-          value: ["o", "l", "l", "e", "h"],
-          type: "array",
-        },
+        expected: ["o", "l", "l", "e", "h"],
       },
       {
         input: {
-          s: {
-            value: ["H", "a", "n", "n", "a", "h"],
-            type: "array",
-          },
+          s: ["H", "a", "n", "n", "a", "h"],
         },
-        expected: {
-          value: ["h", "a", "n", "n", "a", "H"],
-          type: "array",
-        },
+        expected: ["h", "a", "n", "n", "a", "H"],
       },
       {
         input: {
-          s: {
-            value: ["a"],
-            type: "array",
-          },
+          s: ["a"],
         },
-        expected: {
-          value: ["a"],
-          type: "array",
-        },
+        expected: ["a"],
       },
       {
         input: {
-          s: {
-            value: ["a", "b", "c", "d"],
-            type: "array",
-          },
+          s: ["a", "b", "c", "d"],
         },
-        expected: {
-          value: ["d", "c", "b", "a"],
-          type: "array",
-        },
+        expected: ["d", "c", "b", "a"],
       },
     ],
     executionMode: "in-place",
-    comparisonMode: "array",
+    comparisonMode: "ordered-array",
   },
   {
     id: "longest-substring-without-repeating-characters",
@@ -209,6 +161,14 @@ const problems = [
       "0 <= s.length <= 5 * 10^4",
       "s consists of English letters, digits, symbols and spaces.",
     ],
+    input: {
+      s: {
+        type: "string",
+      },
+    },
+    output: {
+      type: "number",
+    },
     testCases: [
       {
         input: { s: "abcabcbb" },
