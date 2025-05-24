@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import './ProblemsList.css';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import "./ProblemsList.css";
 
 const ProblemsList = () => {
   const [problems, setProblems] = useState([]);
@@ -11,13 +11,13 @@ const ProblemsList = () => {
   useEffect(() => {
     const fetchProblems = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/problems');
-        setProblems(response.data);
+        const response = await axios.get("http://localhost:5000/api/problems");
+        setProblems([...response.data]);
         setLoading(false);
       } catch (err) {
-        setError('Failed to fetch problems');
+        setError("Failed to fetch problems");
         setLoading(false);
-        console.error('Error fetching problems:', err);
+        console.error("Error fetching problems:", err);
       }
     };
 
@@ -34,22 +34,16 @@ const ProblemsList = () => {
 
   return (
     <div className="problems-container">
-      <h1>LeetCode Problems</h1>
+      <h1>AlgoArena Problems</h1>
       <div className="problems-table">
         <div className="table-header">
-          <div className="col-title">Title</div>
+          <div className="col-title-header">Title</div>
           <div className="col-difficulty">Difficulty</div>
         </div>
-        {problems.map((problem) => (
-          <Link 
-            to={`/problem/${problem.id}`} 
-            key={problem.id} 
-            className="table-row"
-          >
+        {problems.map((problem, ind) => (
+          <Link to={`/problem/${problem.id}`} key={ind} className="table-row">
             <div className="col-title">{problem.title}</div>
-            <div className={`col-difficulty ${problem.difficulty.toLowerCase()}`}>
-              {problem.difficulty}
-            </div>
+            <div className={`col-difficulty ${problem.difficulty.toLowerCase()}`}>{problem.difficulty}</div>
           </Link>
         ))}
       </div>
