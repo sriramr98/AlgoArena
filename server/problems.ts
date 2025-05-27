@@ -1,5 +1,59 @@
+// Types for problem structures
+
+export enum DataType {
+  STRING = "string",
+  NUMBER = "number",
+  BOOLEAN = "boolean",
+  ARRAY = "array",
+  OBJECT = "object",
+}
+
+export enum ExecutionMode {
+  RETURN = "return",
+  IN_PLACE = "in-place",
+}
+
+export enum ComparisonMode {
+  EXACT = "exact",
+  ORDERED = "ordered",
+  UNORDERED = "unordered",
+}
+
+export interface TestCase {
+  input: any;
+  expected: any;
+}
+
+export interface ProblemExample {
+  input: string;
+  output: string;
+  explanation?: string;
+}
+
+export interface InputType {
+  type: DataType;
+  output?: boolean;
+}
+
+export interface Problem {
+  id: string;
+  title: string;
+  difficulty: string;
+  description: string;
+  examples: ProblemExample[];
+  constraints: string[];
+  input: Record<string, InputType>;
+  output: {
+    type: DataType;
+  };
+  functionName?: string;
+  executionMode: ExecutionMode;
+  comparisonMode: ComparisonMode;
+  testCases: TestCase[];
+}
+
 // Sample hardcoded problems
-const problems = [
+export const problems: Problem[] = [
   {
     id: "two-sum",
     title: "Two Sum",
@@ -25,18 +79,18 @@ const problems = [
     ],
     input: {
       nums: {
-        type: "array",
+        type: DataType.ARRAY,
       },
       target: {
-        type: "number",
+        type: DataType.NUMBER,
       },
     },
     output: {
-      type: "array",
+      type: DataType.ARRAY,
     },
     functionName: "twoSum",
-    executionMode: "return",
-    comparisonMode: "unordered-array",
+    executionMode: ExecutionMode.RETURN,
+    comparisonMode: ComparisonMode.ORDERED,
     testCases: [
       {
         input: {
@@ -97,12 +151,12 @@ const problems = [
     ],
     input: {
       s: {
-        type: "array",
-        output: true
+        type: DataType.ARRAY,
+        output: true,
       },
     },
     output: {
-      type: "array",
+      type: DataType.ARRAY,
     },
     testCases: [
       {
@@ -130,8 +184,8 @@ const problems = [
         expected: ["d", "c", "b", "a"],
       },
     ],
-    executionMode: "in-place",
-    comparisonMode: "ordered-array",
+    executionMode: ExecutionMode.IN_PLACE,
+    comparisonMode: ComparisonMode.ORDERED,
   },
   {
     id: "longest-substring-without-repeating-characters",
@@ -163,11 +217,11 @@ const problems = [
     ],
     input: {
       s: {
-        type: "string",
+        type: DataType.STRING,
       },
     },
     output: {
-      type: "number",
+      type: DataType.NUMBER,
     },
     testCases: [
       {
@@ -195,9 +249,7 @@ const problems = [
         expected: 3,
       },
     ],
-    executionMode: "return",
-    comparisonMode: "exact",
+    executionMode: ExecutionMode.RETURN,
+    comparisonMode: ComparisonMode.EXACT,
   },
 ];
-
-module.exports = problems;

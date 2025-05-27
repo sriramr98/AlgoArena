@@ -1,8 +1,8 @@
-const express = require("express");
-const cors = require("cors");
-const fs = require("fs");
-const codeJudge = require("./judge"); // Original executor
-const problems = require("./problems");
+import express, { Request, Response } from "express";
+import cors from "cors";
+import fs from "fs";
+import codeJudge from "./judge"; // Original executor
+import { problems } from "./problems";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-app.get("/api/problems", (req, res) => {
+app.get("/api/problems", (_req: Request, res: Response) => {
   // Only send basic info for the problems list
   const problemsList = problems.map(({ id, title, difficulty }) => ({
     id,
@@ -22,7 +22,7 @@ app.get("/api/problems", (req, res) => {
   res.json(problemsList);
 });
 
-app.get("/api/problems/:id", (req, res) => {
+app.get("/api/problems/:id", (req: Request, res: Response) => {
   const problem = problems.find((p) => p.id === req.params.id);
   if (!problem) {
     return res.status(404).json({ error: "Problem not found" });
@@ -30,7 +30,7 @@ app.get("/api/problems/:id", (req, res) => {
   res.json(problem);
 });
 
-app.get("/api/problems/:id/stub", (req, res) => {
+app.get("/api/problems/:id/stub", (req: Request, res: Response) => {
   // Get the problem stub from the code_templates folder and return it. The language is passed as a query parameter
   const { id } = req.params;
   const { language } = req.query;
@@ -58,7 +58,7 @@ app.get("/api/problems/:id/stub", (req, res) => {
   }
 });
 
-app.get("/api/problems/:id/testcases", (req, res) => {
+app.get("/api/problems/:id/testcases", (req: Request, res: Response) => {
   const problem = problems.find((p) => p.id === req.params.id);
   if (!problem) {
     return res.status(404).json({ error: "Problem not found" });
@@ -66,10 +66,16 @@ app.get("/api/problems/:id/testcases", (req, res) => {
   res.json(problem.testCases.slice(0, 2)); // Return only the first two test cases for preview
 });
 
+interface SubmitRequest {
+  code: string;
+  language: string;
+  problemId: string;
+}
+
 // Code submission and evaluation endpoint
-app.post("/api/submit", async (req, res) => {
+app.post("/api/submit", async (req: Request, res: Response) => {
   try {
-    const { code, language, problemId } = req.body;
+    const { code, language, problemId } = req.body as SubmitRequest;
     // preview denotes whether only first few test cases should be run
     const preview = req.query.preview === "true";
 
@@ -89,11 +95,11 @@ app.post("/api/submit", async (req, res) => {
     }
 
     // Execute the code
-    const results = await codeJudge(code, problem, language, preview ? 2 : problem.testCases.length)
+    const results = await codeJudge(code, problem, language, preview ? 2 : problem.testCases.length);
 
     // Return results
     res.json(results);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Submission error:", error);
     res
       .status(500)

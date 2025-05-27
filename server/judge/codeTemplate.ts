@@ -1,4 +1,4 @@
-const TEMPLATE = `
+export const TEMPLATE = `
 {imports}
 
 {var_declarations}
@@ -8,5 +8,3 @@ const TEMPLATE = `
 
 {print_result}
 `;
-
-module.exports = TEMPLATE;
