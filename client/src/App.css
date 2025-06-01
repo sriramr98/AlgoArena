@@ -13,10 +13,23 @@ body {
 .App {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
   min-width: 650px;
   overflow-x: auto;
   background-color: #170f30;
+}
+
+.App *::-webkit-scrollbar {
+  width: 8px;
+}
+
+.App *::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 4px;
+}
+
+.App *::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 a {

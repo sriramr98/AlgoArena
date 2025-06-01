@@ -42,22 +42,14 @@ const CollapsibleArray = ({ array }) => {
             ))}
             ]
           </pre>
-          <button
-            className="toggle-array-btn"
-            onClick={() => setIsExpanded(false)}
-          >
+          <button className="toggle-array-btn" onClick={() => setIsExpanded(false)}>
             Show Less
           </button>
         </>
       ) : (
         <>
-          <span className="collapsed-array">
-            [{array.slice(0, 7).map(formatItem).join(", ")}, ...]
-          </span>
-          <button
-            className="toggle-array-btn"
-            onClick={() => setIsExpanded(true)}
-          >
+          <span className="collapsed-array">[{array.slice(0, 7).map(formatItem).join(", ")}, ...]</span>
+          <button className="toggle-array-btn" onClick={() => setIsExpanded(true)}>
             Show All ({array.length} items)
           </button>
         </>
@@ -85,7 +77,7 @@ const formatModalOutput = (output) => {
   if (typeof formattedValue === "string") {
     return `"${formattedValue}"`;
   }
-  
+
   return String(formattedValue);
 };
 
@@ -125,7 +117,7 @@ const formatTestInput = (input) => {
         name: key,
         rawValue: rawValue,
         value: rawValue,
-        type: displayType,
+        type: displayType
       };
     });
   } catch (error) {
@@ -175,12 +167,7 @@ const formatOutput = (output) => {
     }
 
     // Check if the output has the structure { value: ..., type: ... }
-    if (
-      parsedOutput &&
-      typeof parsedOutput === "object" &&
-      "value" in parsedOutput &&
-      "type" in parsedOutput
-    ) {
+    if (parsedOutput && typeof parsedOutput === "object" && "value" in parsedOutput && "type" in parsedOutput) {
       // Return just the value based on the type
       return parsedOutput.value;
     }
@@ -240,8 +227,7 @@ const FormattedOutput = ({ value }) => {
   let valueType = typeof formattedValue;
   if (formattedValue === null) valueType = "null";
   else if (Array.isArray(formattedValue)) valueType = "array";
-  else if (valueType === "object" && formattedValue !== null)
-    valueType = "object";
+  else if (valueType === "object" && formattedValue !== null) valueType = "object";
 
   return (
     <div className="param-item output-item">
@@ -356,12 +342,9 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
 
   const fetchLanguageStub = async (lang) => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/problems/${problemId}/stub`,
-        {
-          params: { language: lang },
-        },
-      );
+      const response = await axios.get(`http://localhost:5000/api/problems/${problemId}/stub`, {
+        params: { language: lang }
+      });
 
       if (response.data && response.data.codeTemplate) {
         setCodeValue(response.data.codeTemplate);
@@ -375,9 +358,7 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
 
   const fetchPreviewTestCases = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/problems/${problemId}/testcases`,
-      );
+      const response = await axios.get(`http://localhost:5000/api/problems/${problemId}/testcases`);
       if (response.data) {
         setPreviewTestCases(response.data);
         // Initialize an empty result object for each test case
@@ -408,14 +389,11 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
         console.log(`${isPreview ? "Running" : "Submitting"} code:`, code);
 
         // Send the code to the backend for testing
-        const response = await axios.post(
-          `http://localhost:5000/api/submit?preview=${isPreview}`,
-          {
-            code,
-            language: currentLanguage,
-            problemId: problemId,
-          },
-        );
+        const response = await axios.post(`http://localhost:5000/api/submit?preview=${isPreview}`, {
+          code,
+          language: currentLanguage,
+          problemId: problemId
+        });
 
         // Small delay before updating state to allow UI to stabilize
         setTimeout(() => {
@@ -444,13 +422,11 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
                 summary: `${passed}/${total} passed, ${total - passed}/${total} failing`,
                 failedExample: failedTest
                   ? {
-                      input: failedTest.input
-                        ? JSON.parse(failedTest.input)
-                        : null,
+                      input: failedTest.input ? JSON.parse(failedTest.input) : null,
                       expected: failedTest.expectedOutput,
-                      actual: failedTest.actualOutput,
+                      actual: failedTest.actualOutput
                     }
-                  : null,
+                  : null
               });
 
               setModalSuccess(false);
@@ -468,14 +444,9 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
           }
         }, 100);
       } catch (err) {
-        console.error(
-          `Error ${isPreview ? "running" : "submitting"} code:`,
-          err,
-        );
+        console.error(`Error ${isPreview ? "running" : "submitting"} code:`, err);
         const errorMessage =
-          err.response?.data?.error ||
-          err.message ||
-          `Failed to ${isPreview ? "run" : "submit"} code`;
+          err.response?.data?.error || err.message || `Failed to ${isPreview ? "run" : "submit"} code`;
 
         if (isPreview) {
           setError(errorMessage);
@@ -483,7 +454,7 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
           // For submission errors, show in modal
           setModalMessage({
             summary: `Error: ${errorMessage}`,
-            failedExample: null,
+            failedExample: null
           });
           setModalSuccess(false);
           setShowModal(true);
@@ -519,9 +490,7 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
   // When a test case completes, auto-navigate to it if it failed
   useEffect(() => {
     // Find the first failed test case
-    const failedTestIndex = Object.entries(testResults).find(
-      ([_, result]) => result && !result.passed,
-    )?.[0];
+    const failedTestIndex = Object.entries(testResults).find(([_, result]) => result && !result.passed)?.[0];
 
     if (failedTestIndex !== undefined) {
       setActiveTestTab(Number(failedTestIndex));
@@ -540,7 +509,7 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
     if (error) {
       setModalMessage({
         summary: `Error: ${error}`,
-        failedExample: null,
+        failedExample: null
       });
       setModalSuccess(false);
       setShowModal(true);
@@ -576,7 +545,7 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
     suggestFontSize: 18,
     bracketPairColorization: { enabled: true },
     autoIndent: "full",
-    tabSize: 4,
+    tabSize: 4
   };
 
   // Editor before mount callback
@@ -591,32 +560,26 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
         "editor.lineHighlightBackground": "#2d2d2d",
         "editorLineNumber.foreground": "#858585",
         "editorLineNumber.activeForeground": "#c6c6c6",
-        "editor.selectionBackground": "#264f78",
-      },
+        "editor.selectionBackground": "#264f78"
+      }
     });
   };
 
   return (
     <div className="code-editor">
       <div className="editor-toolbar">
-        <select
-          value={currentLanguage}
-          onChange={handleLanguageChange}
-          className="language-selector"
-        >
+        <select value={currentLanguage} onChange={handleLanguageChange} className="language-selector">
           <option value="javascript">JavaScript</option>
           <option value="python">Python</option>
           <option value="cpp">C++</option>
         </select>
         <div className="editor-info">
-          <span className="editor-status">
-            {isEditorReady ? "Editor Ready" : "Loading..."}
-          </span>
+          <span className="editor-status">{isEditorReady ? "Editor Ready" : "Loading..."}</span>
         </div>
       </div>
 
       <PanelGroup direction="vertical" className="editor-panels">
-        <Panel defaultSize={70} minSize={30} className="monaco-editor-panel">
+        <Panel defaultSize={showTestPanel ? 70 : 100} minSize={30} className="monaco-editor-panel">
           <div className="editor-container">
             <Editor
               height="100%"
@@ -649,11 +612,7 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
                         <div
                           key={index}
                           className={`tab-header ${activeTestTab === index ? "active" : ""} ${
-                            testResults[index]
-                              ? testResults[index].passed
-                                ? "passed"
-                                : "failed"
-                              : ""
+                            testResults[index] ? (testResults[index].passed ? "passed" : "failed") : ""
                           }`}
                           onClick={() => setActiveTestTab(index)}
                         >
@@ -673,42 +632,30 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
 
                     <div className="tab-content">
                       {previewTestCases.map((testCase, index) => (
-                        <div
-                          key={index}
-                          className={`tab-panel ${activeTestTab === index ? "active" : ""}`}
-                        >
+                        <div key={index} className={`tab-panel ${activeTestTab === index ? "active" : ""}`}>
                           <div className="test-case-info">
                             <div className="test-input">
                               <h4>Input:</h4>
                               <div className="formatted-params">
-                                {formatTestInput(testCase.input).map(
-                                  (param, paramIndex) => (
-                                    <div
-                                      key={paramIndex}
-                                      className="param-item"
-                                    >
-                                      <div className="param-header">
-                                        <div className="param-name">
-                                          {param.name}
-                                        </div>
-                                        <div className="param-type output-type">
-                                          {param.type}
-                                        </div>
-                                      </div>
-                                      <div className="param-value">
-                                        {param.type === "array" ? (
-                                          <CollapsibleArray array={param.rawValue} />
-                                        ) : param.type === "object" ? (
-                                          <pre>{JSON.stringify(param.rawValue, null, 2)}</pre>
-                                        ) : param.type === "string" ? (
-                                          <pre>"{param.rawValue}"</pre>
-                                        ) : (
-                                          <pre>{String(param.rawValue)}</pre>
-                                        )}
-                                      </div>
+                                {formatTestInput(testCase.input).map((param, paramIndex) => (
+                                  <div key={paramIndex} className="param-item">
+                                    <div className="param-header">
+                                      <div className="param-name">{param.name}</div>
+                                      <div className="param-type output-type">{param.type}</div>
                                     </div>
-                                  ),
-                                )}
+                                    <div className="param-value">
+                                      {param.type === "array" ? (
+                                        <CollapsibleArray array={param.rawValue} />
+                                      ) : param.type === "object" ? (
+                                        <pre>{JSON.stringify(param.rawValue, null, 2)}</pre>
+                                      ) : param.type === "string" ? (
+                                        <pre>"{param.rawValue}"</pre>
+                                      ) : (
+                                        <pre>{String(param.rawValue)}</pre>
+                                      )}
+                                    </div>
+                                  </div>
+                                ))}
                               </div>
                             </div>
 
@@ -719,10 +666,7 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
 
                             {!testResults[index] && !isSubmitting && (
                               <div className="no-results-message">
-                                <p>
-                                  Click the "Run" button to test your code
-                                  against this test case.
-                                </p>
+                                <p>Click the "Run" button to test your code against this test case.</p>
                               </div>
                             )}
 
@@ -734,22 +678,13 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
                             )}
 
                             {testResults[index] && (
-                              <div
-                                className={`test-result ${testResults[index].passed ? "passed" : "failed"}`}
-                              >
-                                <h4>
-                                  Result:{" "}
-                                  {testResults[index].passed
-                                    ? "PASSED"
-                                    : "FAILED"}
-                                </h4>
+                              <div className={`test-result ${testResults[index].passed ? "passed" : "failed"}`}>
+                                <h4>Result: {testResults[index].passed ? "PASSED" : "FAILED"}</h4>
 
                                 {testResults[index].actualOutput && (
                                   <div className="test-actual">
                                     <h4>Your Output:</h4>
-                                    <FormattedOutput
-                                      value={testResults[index].actualOutput}
-                                    />
+                                    <FormattedOutput value={testResults[index].actualOutput} />
                                   </div>
                                 )}
 
@@ -783,27 +718,16 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
 
       <div className="editor-footer">
         <div className="footer-left">
-          <button 
-            className="toggle-panel-button" 
-            onClick={() => setShowTestPanel(!showTestPanel)}
-          >
-            {showTestPanel ? 'Hide Test Panel' : 'Show Test Panel'}
+          <button className="toggle-panel-button" onClick={() => setShowTestPanel(!showTestPanel)}>
+            {showTestPanel ? "Hide Test Panel" : "Show Test Panel"}
           </button>
         </div>
         <div className="footer-right">
-          <button 
-            className="run-button" 
-            onClick={handleRun}
-            disabled={isSubmitting || !isEditorReady}
-          >
-            {isSubmitting ? 'Running...' : 'Run'}
+          <button className="run-button" onClick={handleRun} disabled={isSubmitting || !isEditorReady}>
+            {isSubmitting ? "Running..." : "Run"}
           </button>
-          <button 
-            className="submit-button" 
-            onClick={handleSubmit}
-            disabled={isSubmitting || !isEditorReady}
-          >
-            {isSubmitting ? 'Submitting...' : 'Submit'}
+          <button className="submit-button" onClick={handleSubmit} disabled={isSubmitting || !isEditorReady}>
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </div>
       </div>
@@ -811,9 +735,7 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
       {/* Modal for submission results */}
       {showModal && (
         <div className="result-modal-overlay" onClick={handleClickOutside}>
-          <div
-            className={`result-modal ${modalSuccess ? "success" : "failure"}`}
-          >
+          <div className={`result-modal ${modalSuccess ? "success" : "failure"}`}>
             <div className="modal-content">
               <div className="modal-icon">{modalSuccess ? "✅" : "❌"}</div>
 
@@ -833,24 +755,19 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
                         <div className="modal-test-input">
                           <div className="modal-test-label">Input:</div>
                           <div className="modal-test-data">
-                            {Object.entries(
-                              modalMessage.failedExample.input,
-                            ).map(([key, val]) => {
-                              const value =
-                                val.value !== undefined ? val.value : val;
+                            {Object.entries(modalMessage.failedExample.input).map(([key, val]) => {
+                              const value = val.value !== undefined ? val.value : val;
                               const formattedValue = Array.isArray(value)
                                 ? formatSingleLineArray(value)
                                 : typeof value === "object" && value !== null
-                                  ? JSON.stringify(value)
-                                  : typeof value === "string"
-                                    ? `"${value}"`
-                                    : String(value);
+                                ? JSON.stringify(value)
+                                : typeof value === "string"
+                                ? `"${value}"`
+                                : String(value);
 
                               return (
                                 <div key={key} className="modal-param">
-                                  <span className="modal-param-name">
-                                    {key}:
-                                  </span>
+                                  <span className="modal-param-name">{key}:</span>
                                   <span className="modal-param-value">
                                     {Array.isArray(value) ? (
                                       <CollapsibleArray array={value} />
@@ -911,10 +828,7 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
                 </>
               )}
 
-              <button
-                className="modal-close-button"
-                onClick={() => setShowModal(false)}
-              >
+              <button className="modal-close-button" onClick={() => setShowModal(false)}>
                 Close
               </button>
             </div>

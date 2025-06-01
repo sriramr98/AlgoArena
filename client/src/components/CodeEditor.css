@@ -60,32 +60,35 @@
 
 /* Horizontal resize handle */
 .resize-handle.horizontal {
-  height: 6px;
+  height: 8px;
+  width: 100%;
   background-color: #444;
   cursor: row-resize;
   transition: background-color 0.2s;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .resize-handle.horizontal::after {
-  content: '';
+  content: "";
   height: 2px;
   width: 40px;
-  background-color: #666;
+  /* background-color: #666; */
   border-radius: 1px;
 }
 
 .resize-handle.horizontal:hover,
 .resize-handle.horizontal[data-resize-handle-active] {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
-.resize-handle.horizontal:hover::after,
+/* .resize-handle.horizontal:hover::after,
 .resize-handle.horizontal[data-resize-handle-active]::after {
   background-color: #fff;
-}
+} */
 
 .editor-loading {
   display: flex;
@@ -134,7 +137,7 @@
 }
 
 .run-button {
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -145,14 +148,15 @@
 }
 
 .run-button:hover {
-  background-color: #1976D2;
+  background-color: #1976d2;
 }
 
 .run-button:active {
-  background-color: #0D47A1;
+  background-color: #0d47a1;
 }
 
-.run-button:disabled, .submit-button:disabled {
+.run-button:disabled,
+.submit-button:disabled {
   background-color: #777;
   cursor: not-allowed;
 }
@@ -179,7 +183,7 @@
 .param-value pre {
   margin: 0;
   padding: 0;
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
   font-size: 13px;
   background: none;
   white-space: pre-wrap;
@@ -193,12 +197,12 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
   font-size: 13px;
 }
 
 .collapsed-array {
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
   white-space: pre-wrap;
   overflow-x: auto;
   display: inline-block;
@@ -212,7 +216,7 @@
 .expanded-array {
   margin: 0;
   padding: 0;
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
   width: 100%;
   overflow-x: auto;
   white-space: pre-wrap;
@@ -223,7 +227,7 @@
 .toggle-array-btn {
   background: none;
   border: none;
-  color: #2196F3;
+  color: #2196f3;
   font-size: 12px;
   cursor: pointer;
   padding: 4px 8px;
@@ -261,6 +265,8 @@
   background-color: #2d2d2d;
   border-bottom: 1px solid #444;
   overflow-x: auto;
+  height: 40px;
+  flex-shrink: 0;
 }
 
 .tab-header {
@@ -313,7 +319,7 @@
 .tab-header.active {
   background-color: #3c3c3c;
   color: #fff;
-  border-bottom: 2px solid #2196F3;
+  border-bottom: 2px solid #2196f3;
 }
 
 .tab-header.passed {
@@ -364,7 +370,7 @@
   border-radius: 4px;
   overflow-x: auto;
   margin: 0;
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
   font-size: 13px;
 }
 
@@ -397,7 +403,7 @@
 .param-name {
   font-weight: bold;
   font-size: 13px;
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
 }
 
 .param-type {
@@ -415,7 +421,7 @@
   background-color: #2d2d2d;
   border-radius: 0 0 4px 4px;
   overflow-x: auto;
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
   font-size: 13px;
   white-space: pre-wrap;
   word-break: break-word;
@@ -441,14 +447,14 @@
 }
 
 .test-actual pre {
-  border-left: 3px solid #2196F3;
+  border-left: 3px solid #2196f3;
 }
 
 .test-error pre {
   border-left: 3px solid #f44336;
   margin: 0;
   padding: 10px;
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
   font-size: 13px;
   background-color: rgba(244, 67, 54, 0.1);
   color: #f44336;
@@ -463,7 +469,7 @@
   border-radius: 4px;
   overflow-x: auto;
   margin: 0;
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
   font-size: 13px;
   white-space: pre-wrap;
   word-break: break-word;
@@ -480,9 +486,11 @@
 }
 
 /* Ensure all array formats have proper styling */
-.collapsed-array, .expanded-array, .single-line-array {
+.collapsed-array,
+.expanded-array,
+.single-line-array {
   background-color: transparent;
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
   font-size: 13px;
   padding: 0;
   margin: 0;
@@ -513,7 +521,7 @@
   margin: 20px 0;
   padding: 15px;
   background-color: #2d2d2d;
-  border-left: 3px solid #2196F3;
+  border-left: 3px solid #2196f3;
   color: #ccc;
   font-style: italic;
 }
@@ -521,7 +529,7 @@
 .loader {
   border: 3px solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
-  border-top: 3px solid #2196F3;
+  border-top: 3px solid #2196f3;
   width: 24px;
   height: 24px;
   margin-right: 10px;
@@ -529,8 +537,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Styles for the original test results display (for Submit) */
@@ -663,8 +675,14 @@
 }
 
 @keyframes modal-popup {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .result-modal.success {
@@ -747,7 +765,7 @@
   border-radius: 4px;
   padding: 10px;
   overflow-x: auto;
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
   font-size: 13px;
   color: #e0e0e0;
   white-space: pre-wrap;
@@ -765,7 +783,7 @@
 .modal-test-actual .modal-test-data pre {
   margin: 0;
   padding: 0;
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
   font-size: 13px;
   white-space: pre-wrap;
   word-break: break-word;
@@ -778,7 +796,7 @@
 }
 
 .modal-param-name {
-  color: #2196F3;
+  color: #2196f3;
   margin-right: 5px;
   flex-shrink: 0;
 }
@@ -793,7 +811,7 @@
 .modal-param-value pre {
   margin: 0;
   padding: 0;
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: "Fira Code", "Consolas", monospace;
   font-size: 13px;
   white-space: pre-wrap;
   word-break: break-word;

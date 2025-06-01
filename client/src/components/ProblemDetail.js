@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import CodeEditor from './CodeEditor';
-import './ProblemDetail.css';
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import CodeEditor from "./CodeEditor";
+import "./ProblemDetail.css";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 const ProblemDetail = () => {
   const { id } = useParams();
   const [problem, setProblem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   useEffect(() => {
     const fetchProblem = async () => {
       try {
-        console.log('Fetching problem with id:', id);
+        console.log("Fetching problem with id:", id);
         const response = await axios.get(`http://localhost:5000/api/problems/${id}`);
-        console.log('Problem data received:', response.data);
+        console.log("Problem data received:", response.data);
         setProblem(response.data);
         setLoading(false);
       } catch (err) {
-        setError('Failed to fetch problem details');
+        setError("Failed to fetch problem details");
         setLoading(false);
-        console.error('Error fetching problem:', err);
+        console.error("Error fetching problem:", err);
       }
     };
 
@@ -44,18 +44,16 @@ const ProblemDetail = () => {
   return (
     <div className="problem-detail-container">
       <PanelGroup direction="horizontal">
-        <Panel defaultSize={40} minSize={25} className="problem-description-panel">
+        <Panel defaultSize={30} minSize={25} className="problem-description-panel">
           <div className="problem-description">
             <div className="problem-header">
               <h1>{problem.title}</h1>
-              <span className={`difficulty ${problem.difficulty.toLowerCase()}`}>
-                {problem.difficulty}
-              </span>
+              <span className={`difficulty ${problem.difficulty.toLowerCase()}`}>{problem.difficulty}</span>
             </div>
-            
+
             <div className="problem-content">
               <div className="description">
-                {problem.description.split('\\n\\n').map((paragraph, idx) => (
+                {problem.description.split("\\n\\n").map((paragraph, idx) => (
                   <p key={idx}>{paragraph}</p>
                 ))}
               </div>
@@ -90,12 +88,15 @@ const ProblemDetail = () => {
             </div>
           </div>
         </Panel>
-        
+
         <PanelResizeHandle className="resize-handle" />
-        
-        <Panel defaultSize={60} minSize={30} className="code-editor-panel">
-          <div className="code-editor-container" style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-            <CodeEditor 
+
+        <Panel defaultSize={70} minSize={30} className="code-editor-panel">
+          <div
+            className="code-editor-container"
+            style={{ height: "100%", width: "100%", display: "flex", flexDirection: "column", overflow: "hidden" }}
+          >
+            <CodeEditor
               language="javascript"
               problemId={id}
               key={id} // Add a key to force re-render when problem changes
