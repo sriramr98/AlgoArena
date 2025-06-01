@@ -13,7 +13,7 @@ A simple LeetCode clone with a React frontend and Express.js backend.
   - Code submission capability
   - Smart code templates based on problem type
 - Code execution with test cases:
-  - Built-in executors for JavaScript, Python, and C++ 
+  - Built-in executors for JavaScript, Python, and C++
   - Optional Judge0 CE integration for more languages and better isolation
 
 ## Project Structure
@@ -56,6 +56,7 @@ npm run dev
 ```
 
 This will concurrently start:
+
 - Frontend on http://localhost:3000
 - Backend on http://localhost:5000
 
@@ -64,22 +65,26 @@ This will concurrently start:
 For improved code execution with better language support:
 
 1. Start Judge0 CE using Docker:
+
 ```bash
 cd server
 docker-compose -f docker-compose.judge0.yml up -d
 ```
 
 2. Check if Judge0 is running:
+
 ```bash
 npm run check-judge0
 ```
 
 3. Switch to the Judge0-based executor:
+
 ```bash
 npm run toggle-executor
 ```
 
 4. Restart the server:
+
 ```bash
 npm run dev
 ```

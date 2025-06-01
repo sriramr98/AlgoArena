@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
-import ProblemsList from "./components/ProblemsList";
-import ProblemDetail from "./components/ProblemDetail";
-import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
+import ProblemsList from './components/ProblemsList';
+import ProblemDetail from './components/ProblemDetail';
+import Navbar from './components/Navbar';
 
 function App() {
   return (

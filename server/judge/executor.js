@@ -1,23 +1,23 @@
-const axios = require("axios");
+const axios = require('axios');
 
 const getSupportedVersion = (lang) => {
   const supportedVersions = {
-    python: "3.12.0",
-    javascript: "20.11.1",
+    python: '3.12.0',
+    javascript: '20.11.1',
   };
   return supportedVersions[lang] || null;
-}
+};
 
 const getLangExtension = (lang) => {
   const langExtensions = {
-    python: "py",
-    javascript: "js",
+    python: 'py',
+    javascript: 'js',
   };
   return langExtensions[lang] || null;
-}
+};
 
 const execute = async (code, language) => {
-  const PISTON_HOST = process.env.PISTON_API_URL || "http://localhost:2000";
+  const PISTON_HOST = process.env.PISTON_API_URL || 'http://localhost:2000';
   const EXECUTE_URL = `${PISTON_HOST}/api/v2/execute`;
 
   const payload = {
@@ -48,10 +48,8 @@ const execute = async (code, language) => {
   const data = resp.data?.run || {};
   return {
     success: true,
-    ...data
-  }
-
-}
-
+    ...data,
+  };
+};
 
 module.exports = execute;
