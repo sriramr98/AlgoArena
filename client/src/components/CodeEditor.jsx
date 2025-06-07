@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Editor from '@monaco-editor/react';
 import axios from 'axios';
 import './CodeEditor.css';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { CheckCircleIcon, XCircleIcon } from '@phosphor-icons/react';
+import { ResizableMonacoEditor } from './ResizableMonacoEditor';
 
 // Collapsible Array component for large arrays
 const CollapsibleArray = ({ array }) => {
@@ -305,41 +305,41 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
   };
 
   // Handle editor mount
-  const handleEditorDidMount = (editor, monaco) => {
-    editorRef.current = editor;
-    setIsEditorReady(true);
+  // const handleEditorDidMount = (editor, monaco) => {
+  //   editorRef.current = editor;
+  //   setIsEditorReady(true);
 
-    // Add command palette shortcut
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyP, () => {
-      // Show command palette
-      editor.trigger('', 'editor.action.quickCommand');
-    });
+  //   // Add command palette shortcut
+  //   editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyP, () => {
+  //     // Show command palette
+  //     editor.trigger('', 'editor.action.quickCommand');
+  //   });
 
-    // Set up a resize observer to manually handle editor layout
-    const resizeObserver = new ResizeObserver(() => {
-      // Debounce the layout call to prevent loops
-      if (editorRef.current) {
-        setTimeout(() => {
-          try {
-            editorRef.current.layout();
-          } catch (err) {
-            console.warn('Editor layout error:', err);
-          }
-        }, 100);
-      }
-    });
+  //   // Set up a resize observer to manually handle editor layout
+  //   const resizeObserver = new ResizeObserver(() => {
+  //     // Debounce the layout call to prevent loops
+  //     if (editorRef.current) {
+  //       setTimeout(() => {
+  //         try {
+  //           editorRef.current.layout();
+  //         } catch (err) {
+  //           console.warn('Editor layout error:', err);
+  //         }
+  //       }, 100);
+  //     }
+  //   });
 
-    // Observe the container element
-    const container = document.querySelector('.editor-container');
-    if (container) {
-      resizeObserver.observe(container);
+  //   // Observe the container element
+  //   const container = document.querySelector('.editor-container');
+  //   if (container) {
+  //     resizeObserver.observe(container);
 
-      // Store the observer in a ref for cleanup
-      window.addEventListener('beforeunload', () => {
-        resizeObserver.disconnect();
-      });
-    }
-  };
+  //     // Store the observer in a ref for cleanup
+  //     window.addEventListener('beforeunload', () => {
+  //       resizeObserver.disconnect();
+  //     });
+  //   }
+  // };
 
   const handleLanguageChange = async (e) => {
     const newLanguage = e.target.value;
@@ -582,23 +582,6 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
     tabSize: 4,
   };
 
-  // Editor before mount callback
-  const handleEditorBeforeMount = (monaco) => {
-    // Define custom editor themes
-    monaco.editor.defineTheme('leetCodeDark', {
-      base: 'vs-dark',
-      inherit: true,
-      rules: [],
-      colors: {
-        'editor.background': '#1e1e1e',
-        'editor.lineHighlightBackground': '#2d2d2d',
-        'editorLineNumber.foreground': '#858585',
-        'editorLineNumber.activeForeground': '#c6c6c6',
-        'editor.selectionBackground': '#264f78',
-      },
-    });
-  };
-
   return (
     <div className="code-editor">
       <div className="editor-toolbar">
@@ -609,46 +592,31 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
           aria-label="Choose a language"
         >
           <option value="javascript">JavaScript</option>
-          <option value="javascript">Java</option>
+          {/* <option value="java">Java</option> */}
           <option value="python">Python</option>
           {/* <option value="cpp">C++</option> */}
         </select>
-        <div className="editor-info">
-          <span className="editor-status">
-            {isEditorReady ? 'Editor Ready' : 'Loading...'}
-          </span>
-        </div>
       </div>
 
       <PanelGroup direction="vertical" className="editor-panels">
         <Panel
-          defaultSize={showTestPanel ? 70 : 100}
+          defaultSize={showTestPanel ? 65 : 100}
           minSize={30}
           className="monaco-editor-panel"
         >
-          <div className="editor-container">
-            <Editor
-              height="100%"
-              defaultLanguage={getMonacoLanguage(currentLanguage)}
-              language={getMonacoLanguage(currentLanguage)}
-              value={codeValue}
-              theme="leetCodeDark"
-              options={options}
-              onMount={handleEditorDidMount}
-              beforeMount={handleEditorBeforeMount}
-              onChange={(newValue) => {
-                setCodeValue(newValue);
-              }}
-              loading={<div className="editor-loading">Loading editor...</div>}
-            />
-          </div>
+          <ResizableMonacoEditor
+            currentLanguage={currentLanguage}
+            codeValue={codeValue}
+            // handleEditorDidMount={handleEditorDidMount}
+            setCodeValue={setCodeValue}
+          />
         </Panel>
 
         {showTestPanel && (
           <>
             <PanelResizeHandle className="resize-handle horizontal" />
 
-            <Panel defaultSize={30} minSize={15} className="test-panel">
+            <Panel defaultSize={35} minSize={20} className="test-panel">
               <div className="test-results-container">
                 {/* For Run button results - Tabbed Interface */}
                 {previewTestCases.length > 0 && (
