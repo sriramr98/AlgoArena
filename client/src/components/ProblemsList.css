@@ -1,45 +1,76 @@
 .problems-container {
   max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  width: 100%;
+  height: fit-content !important;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  border-radius: 16px;
+  background-color: #3c3c3c;
+  border: 1px solid #111111;
+  margin-top: 2rem;
+  height: calc(100% - 71px);
 }
 
 .problems-container h1 {
   text-align: center;
-  margin-bottom: 2rem;
-  color: #333;
+  margin: 1.5rem 0 1rem 0;
+  color: white;
 }
 
 .problems-table {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  overflow-y: auto;
+  max-height: 70vh;
+  width: 100%;
+  z-index: 0;
+}
+
+.problems-table::-webkit-scrollbar {
+  width: 8px;
+}
+
+.problems-table::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 4px;
+}
+
+.problems-table::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .table-header {
   display: flex;
-  background-color: #f8f9fa;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   font-weight: bold;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid #111111;
+  width: 100%;
+  color: white;
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  background-color: #3c3c3c;
 }
 
 .table-row {
   display: flex;
-  padding: 1rem;
-  border-bottom: 1px solid #e9ecef;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #111111;
   text-decoration: none;
   color: inherit;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease;
+  color: white;
+  z-index: 0;
 }
 
 .table-row:hover {
-  background-color: #f8f9fa;
+  background-color: #555555;
 }
 
 .table-row:last-child {
   border-bottom: none;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
 
 .col-id {
@@ -47,29 +78,40 @@
   color: #666;
 }
 
+.col-title-header {
+  flex: 1;
+}
+
 .col-title {
   flex: 1;
-  color: #0066cc;
 }
 
 .col-difficulty {
-  flex: 0 0 20%;
+  flex: 0 0 15%;
+  max-width: 120px;
   text-align: center;
+  height: fit-content;
+  padding: 2px 8px 4px 8px;
+  border-radius: 8px;
 }
 
-.easy {
-  color: #00af9b;
+.col-difficulty.easy {
+  color: #7bfefd;
+  background-color: #234a54;
 }
 
-.medium {
-  color: #ffb800;
+.col-difficulty.medium {
+  color: #fffec6;
+  background-color: #3d283a;
 }
 
-.hard {
-  color: #ff2d55;
+.col-difficulty.hard {
+  color: #ff9098;
+  background-color: #4d0d2f;
 }
 
-.loading, .error {
+.loading,
+.error {
   text-align: center;
   margin-top: 2rem;
   font-size: 1.2rem;
