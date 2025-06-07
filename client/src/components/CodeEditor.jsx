@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
-import Editor from "@monaco-editor/react";
-import axios from "axios";
-import "./CodeEditor.css";
-import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
+import './CodeEditor.css';
+import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
+import { CheckCircleIcon, XCircleIcon } from '@phosphor-icons/react';
+import { ResizableMonacoEditor } from './ResizableMonacoEditor';
 
 // Collapsible Array component for large arrays
 const CollapsibleArray = ({ array }) => {
@@ -10,21 +11,21 @@ const CollapsibleArray = ({ array }) => {
 
   // Helper to format single items in arrays
   const formatItem = (item) => {
-    if (typeof item === "string") return `"${item}"`;
+    if (typeof item === 'string') return `"${item}"`;
     if (Array.isArray(item)) {
       if (item.length <= 3) {
-        return `[${item.map(formatItem).join(", ")}]`;
+        return `[${item.map(formatItem).join(', ')}]`;
       } else {
-        return `[${item.slice(0, 3).map(formatItem).join(", ")}, ...]`;
+        return `[${item.slice(0, 3).map(formatItem).join(', ')}, ...]`;
       }
     }
-    if (typeof item === "object" && item !== null) return JSON.stringify(item);
+    if (typeof item === 'object' && item !== null) return JSON.stringify(item);
     return String(item);
   };
 
   if (array.length <= 10) {
     // For small arrays, just show all elements in a single line
-    return <span>[{array.map(formatItem).join(", ")}]</span>;
+    return <span>[{array.map(formatItem).join(', ')}]</span>;
   }
 
   return (
@@ -36,7 +37,7 @@ const CollapsibleArray = ({ array }) => {
             {array.map((item, i) => (
               <React.Fragment key={i}>
                 {formatItem(item)}
-                {i < array.length - 1 ? "," : ""}
+                {i < array.length - 1 ? ',' : ''}
                 {i < array.length - 1 && <br />}
               </React.Fragment>
             ))}
@@ -52,7 +53,7 @@ const CollapsibleArray = ({ array }) => {
       ) : (
         <>
           <span className="collapsed-array">
-            [{array.slice(0, 7).map(formatItem).join(", ")}, ...]
+            [{array.slice(0, 7).map(formatItem).join(', ')}, ...]
           </span>
           <button
             className="toggle-array-btn"
@@ -77,15 +78,15 @@ const formatModalOutput = (output) => {
   }
 
   // Handle objects
-  if (typeof formattedValue === "object" && formattedValue !== null) {
+  if (typeof formattedValue === 'object' && formattedValue !== null) {
     return JSON.stringify(formattedValue, null, 2);
   }
 
   // Handle primitive values
-  if (typeof formattedValue === "string") {
+  if (typeof formattedValue === 'string') {
     return `"${formattedValue}"`;
   }
-  
+
   return String(formattedValue);
 };
 
@@ -95,7 +96,7 @@ const formatTestInput = (input) => {
 
   try {
     // If input is a string, try to parse it
-    const parsedInput = typeof input === "string" ? JSON.parse(input) : input;
+    const parsedInput = typeof input === 'string' ? JSON.parse(input) : input;
 
     return Object.entries(parsedInput).map(([key, valueObj]) => {
       let rawValue;
@@ -110,15 +111,15 @@ const formatTestInput = (input) => {
 
       // Determine the type
       if (Array.isArray(rawValue)) {
-        displayType = "array";
-      } else if (typeof rawValue === "object" && rawValue !== null) {
-        displayType = "object";
-      } else if (typeof rawValue === "string") {
-        displayType = "string";
-      } else if (typeof rawValue === "number") {
-        displayType = "number";
-      } else if (typeof rawValue === "boolean") {
-        displayType = "boolean";
+        displayType = 'array';
+      } else if (typeof rawValue === 'object' && rawValue !== null) {
+        displayType = 'object';
+      } else if (typeof rawValue === 'string') {
+        displayType = 'string';
+      } else if (typeof rawValue === 'number') {
+        displayType = 'number';
+      } else if (typeof rawValue === 'boolean') {
+        displayType = 'boolean';
       }
 
       return {
@@ -129,7 +130,7 @@ const formatTestInput = (input) => {
       };
     });
   } catch (error) {
-    console.error("Error formatting test input:", error);
+    console.error('Error formatting test input:', error);
     return [];
   }
 };
@@ -137,24 +138,24 @@ const formatTestInput = (input) => {
 // Helper to format arrays as a single line
 const formatSingleLineArray = (array) => {
   if (array.length <= 10) {
-    return `[${array.map(formatArrayItem).join(", ")}]`;
+    return `[${array.map(formatArrayItem).join(', ')}]`;
   } else {
     // For longer arrays, show first 8 elements with ellipsis indicating how many more
-    return `[${array.slice(0, 8).map(formatArrayItem).join(", ")}, ... ${array.length - 8} more]`;
+    return `[${array.slice(0, 8).map(formatArrayItem).join(', ')}, ... ${array.length - 8} more]`;
   }
 };
 
 // Helper to format individual array items
 const formatArrayItem = (item) => {
-  if (typeof item === "string") return `"${item}"`;
+  if (typeof item === 'string') return `"${item}"`;
   if (Array.isArray(item)) {
     if (item.length <= 3) {
-      return `[${item.map(formatArrayItem).join(", ")}]`;
+      return `[${item.map(formatArrayItem).join(', ')}]`;
     } else {
-      return `[${item.slice(0, 2).map(formatArrayItem).join(", ")}, ...]`;
+      return `[${item.slice(0, 2).map(formatArrayItem).join(', ')}, ...]`;
     }
   }
-  if (typeof item === "object" && item !== null) return JSON.stringify(item);
+  if (typeof item === 'object' && item !== null) return JSON.stringify(item);
   return String(item);
 };
 
@@ -165,7 +166,7 @@ const formatOutput = (output) => {
   try {
     // If it's a string, try to parse it as JSON
     let parsedOutput = output;
-    if (typeof output === "string") {
+    if (typeof output === 'string') {
       try {
         parsedOutput = JSON.parse(output);
       } catch (e) {
@@ -177,9 +178,9 @@ const formatOutput = (output) => {
     // Check if the output has the structure { value: ..., type: ... }
     if (
       parsedOutput &&
-      typeof parsedOutput === "object" &&
-      "value" in parsedOutput &&
-      "type" in parsedOutput
+      typeof parsedOutput === 'object' &&
+      'value' in parsedOutput &&
+      'type' in parsedOutput
     ) {
       // Return just the value based on the type
       return parsedOutput.value;
@@ -187,7 +188,7 @@ const formatOutput = (output) => {
 
     return parsedOutput;
   } catch (error) {
-    console.error("Error formatting output:", error);
+    console.error('Error formatting output:', error);
     return output;
   }
 };
@@ -196,15 +197,15 @@ const formatOutput = (output) => {
 const formatDisplayValue = (value) => {
   // Helper to format single items in arrays
   const formatItem = (item) => {
-    if (typeof item === "string") return `"${item}"`;
+    if (typeof item === 'string') return `"${item}"`;
     if (Array.isArray(item)) {
       if (item.length <= 3) {
-        return `[${item.map(formatItem).join(", ")}]`;
+        return `[${item.map(formatItem).join(', ')}]`;
       } else {
-        return `[${item.slice(0, 3).map(formatItem).join(", ")}, ...]`;
+        return `[${item.slice(0, 3).map(formatItem).join(', ')}, ...]`;
       }
     }
-    if (typeof item === "object" && item !== null) return JSON.stringify(item);
+    if (typeof item === 'object' && item !== null) return JSON.stringify(item);
     return String(item);
   };
 
@@ -215,19 +216,19 @@ const formatDisplayValue = (value) => {
     }
 
     // Handle objects with pretty indentation
-    if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
       return JSON.stringify(value, null, 2);
     }
 
     // Format strings with quotes
-    if (typeof value === "string") {
+    if (typeof value === 'string') {
       return `"${value}"`;
     }
 
     // For other primitive types, convert to string
     return String(value);
   } catch (error) {
-    console.error("Error formatting display value:", error);
+    console.error('Error formatting display value:', error);
     return String(value);
   }
 };
@@ -238,10 +239,10 @@ const FormattedOutput = ({ value }) => {
 
   // Determine the type of the value
   let valueType = typeof formattedValue;
-  if (formattedValue === null) valueType = "null";
-  else if (Array.isArray(formattedValue)) valueType = "array";
-  else if (valueType === "object" && formattedValue !== null)
-    valueType = "object";
+  if (formattedValue === null) valueType = 'null';
+  else if (Array.isArray(formattedValue)) valueType = 'array';
+  else if (valueType === 'object' && formattedValue !== null)
+    valueType = 'object';
 
   return (
     <div className="param-item output-item">
@@ -252,9 +253,9 @@ const FormattedOutput = ({ value }) => {
       <div className="param-value">
         {Array.isArray(formattedValue) ? (
           <CollapsibleArray array={formattedValue} />
-        ) : valueType === "object" ? (
+        ) : valueType === 'object' ? (
           <pre>{JSON.stringify(formattedValue, null, 2)}</pre>
-        ) : valueType === "string" ? (
+        ) : valueType === 'string' ? (
           <pre>"{formattedValue}"</pre>
         ) : (
           <pre>{String(formattedValue)}</pre>
@@ -264,12 +265,12 @@ const FormattedOutput = ({ value }) => {
   );
 };
 
-const CodeEditor = ({ language = "javascript", problemId = "" }) => {
+const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
   const editorRef = useRef(null);
 
   const [currentLanguage, setCurrentLanguage] = useState(language);
   const [isEditorReady, setIsEditorReady] = useState(false);
-  const [codeValue, setCodeValue] = useState("");
+  const [codeValue, setCodeValue] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [results, setResults] = useState(null);
   const [error, setError] = useState(null);
@@ -278,67 +279,67 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
   const [testResults, setTestResults] = useState({});
   const [showTestPanel, setShowTestPanel] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
+  const [modalMessage, setModalMessage] = useState('');
   const [modalSuccess, setModalSuccess] = useState(false);
 
   // Function to format language for Monaco Editor
   const getMonacoLanguage = (lang) => {
     switch (lang.toLowerCase()) {
-      case "javascript":
-        return "javascript";
-      case "python":
-        return "python";
-      case "cpp":
-        return "cpp";
-      case "java":
-        return "java";
-      case "ruby":
-        return "ruby";
-      case "go":
-        return "go";
-      case "rust":
-        return "rust";
+      case 'javascript':
+        return 'javascript';
+      case 'python':
+        return 'python';
+      case 'cpp':
+        return 'cpp';
+      case 'java':
+        return 'java';
+      case 'ruby':
+        return 'ruby';
+      case 'go':
+        return 'go';
+      case 'rust':
+        return 'rust';
       default:
-        return "javascript";
+        return 'javascript';
     }
   };
 
   // Handle editor mount
-  const handleEditorDidMount = (editor, monaco) => {
-    editorRef.current = editor;
-    setIsEditorReady(true);
+  // const handleEditorDidMount = (editor, monaco) => {
+  //   editorRef.current = editor;
+  //   setIsEditorReady(true);
 
-    // Add command palette shortcut
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyP, () => {
-      // Show command palette
-      editor.trigger("", "editor.action.quickCommand");
-    });
+  //   // Add command palette shortcut
+  //   editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyP, () => {
+  //     // Show command palette
+  //     editor.trigger('', 'editor.action.quickCommand');
+  //   });
 
-    // Set up a resize observer to manually handle editor layout
-    const resizeObserver = new ResizeObserver(() => {
-      // Debounce the layout call to prevent loops
-      if (editorRef.current) {
-        setTimeout(() => {
-          try {
-            editorRef.current.layout();
-          } catch (err) {
-            console.warn("Editor layout error:", err);
-          }
-        }, 100);
-      }
-    });
+  //   // Set up a resize observer to manually handle editor layout
+  //   const resizeObserver = new ResizeObserver(() => {
+  //     // Debounce the layout call to prevent loops
+  //     if (editorRef.current) {
+  //       setTimeout(() => {
+  //         try {
+  //           editorRef.current.layout();
+  //         } catch (err) {
+  //           console.warn('Editor layout error:', err);
+  //         }
+  //       }, 100);
+  //     }
+  //   });
 
-    // Observe the container element
-    const container = document.querySelector(".editor-container");
-    if (container) {
-      resizeObserver.observe(container);
+  //   // Observe the container element
+  //   const container = document.querySelector('.editor-container');
+  //   if (container) {
+  //     resizeObserver.observe(container);
 
-      // Store the observer in a ref for cleanup
-      window.addEventListener("beforeunload", () => {
-        resizeObserver.disconnect();
-      });
-    }
-  };
+  //     // Store the observer in a ref for cleanup
+  //     window.addEventListener('beforeunload', () => {
+  //       resizeObserver.disconnect();
+  //     });
+  //   }
+  // };
 
   const handleLanguageChange = async (e) => {
     const newLanguage = e.target.value;
@@ -368,8 +369,8 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
         return;
       }
     } catch (err) {
-      console.error("Error fetching code template:", err);
-      setCodeValue("");
+      console.error('Error fetching code template:', err);
+      setCodeValue('');
     }
   };
 
@@ -388,7 +389,7 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
         setTestResults(initialResults);
       }
     } catch (err) {
-      console.error("Error fetching test cases:", err);
+      console.error('Error fetching test cases:', err);
     }
   };
 
@@ -405,7 +406,7 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
         }
 
         const code = editorRef.current.getValue();
-        console.log(`${isPreview ? "Running" : "Submitting"} code:`, code);
+        console.log(`${isPreview ? 'Running' : 'Submitting'} code:`, code);
 
         // Send the code to the backend for testing
         const response = await axios.post(
@@ -434,18 +435,20 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
             const { passed, total, success, testResults } = response.data;
 
             if (success) {
-              setModalMessage("You have successfully completed the problem!");
+              setModalMessage('You have successfully completed the problem!');
               setModalSuccess(true);
             } else {
               // Find the first failed test case to show as an example
               const failedTest = testResults.find((test) => !test.passed);
+
+              console.log(failedTest.input);
 
               setModalMessage({
                 summary: `${passed}/${total} passed, ${total - passed}/${total} failing`,
                 failedExample: failedTest
                   ? {
                       input: failedTest.input
-                        ? JSON.parse(failedTest.input)
+                        ? JSON.stringify(failedTest.input, null, 2)
                         : null,
                       expected: failedTest.expectedOutput,
                       actual: failedTest.actualOutput,
@@ -469,13 +472,13 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
         }, 100);
       } catch (err) {
         console.error(
-          `Error ${isPreview ? "running" : "submitting"} code:`,
+          `Error ${isPreview ? 'running' : 'submitting'} code:`,
           err,
         );
         const errorMessage =
           err.response?.data?.error ||
           err.message ||
-          `Failed to ${isPreview ? "run" : "submit"} code`;
+          `Failed to ${isPreview ? 'run' : 'submit'} code`;
 
         if (isPreview) {
           setError(errorMessage);
@@ -530,7 +533,7 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
 
   // Function to handle click outside modal
   const handleClickOutside = (e) => {
-    if (e.target.classList.contains("result-modal-overlay")) {
+    if (e.target.classList.contains('result-modal-overlay')) {
       setShowModal(false);
     }
   };
@@ -562,38 +565,21 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
     selectOnLineNumbers: true,
     roundedSelection: false,
     readOnly: false,
-    cursorStyle: "line",
+    cursorStyle: 'line',
     // Disable automaticLayout - we'll handle layout manually to avoid ResizeObserver issues
     automaticLayout: false,
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
-    lineNumbers: "on",
-    wordWrap: "on",
+    lineNumbers: 'on',
+    wordWrap: 'on',
     folding: true,
     lineDecorationsWidth: 7,
     fontSize: 18,
     fontFamily: "'Fira Code', 'Consolas', 'Monaco', monospace",
     suggestFontSize: 18,
     bracketPairColorization: { enabled: true },
-    autoIndent: "full",
+    autoIndent: 'full',
     tabSize: 4,
-  };
-
-  // Editor before mount callback
-  const handleEditorBeforeMount = (monaco) => {
-    // Define custom editor themes
-    monaco.editor.defineTheme("leetCodeDark", {
-      base: "vs-dark",
-      inherit: true,
-      rules: [],
-      colors: {
-        "editor.background": "#1e1e1e",
-        "editor.lineHighlightBackground": "#2d2d2d",
-        "editorLineNumber.foreground": "#858585",
-        "editorLineNumber.activeForeground": "#c6c6c6",
-        "editor.selectionBackground": "#264f78",
-      },
-    });
   };
 
   return (
@@ -603,43 +589,34 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
           value={currentLanguage}
           onChange={handleLanguageChange}
           className="language-selector"
+          aria-label="Choose a language"
         >
           <option value="javascript">JavaScript</option>
+          {/* <option value="java">Java</option> */}
           <option value="python">Python</option>
-          <option value="cpp">C++</option>
+          {/* <option value="cpp">C++</option> */}
         </select>
-        <div className="editor-info">
-          <span className="editor-status">
-            {isEditorReady ? "Editor Ready" : "Loading..."}
-          </span>
-        </div>
       </div>
 
       <PanelGroup direction="vertical" className="editor-panels">
-        <Panel defaultSize={70} minSize={30} className="monaco-editor-panel">
-          <div className="editor-container">
-            <Editor
-              height="100%"
-              defaultLanguage={getMonacoLanguage(currentLanguage)}
-              language={getMonacoLanguage(currentLanguage)}
-              value={codeValue}
-              theme="leetCodeDark"
-              options={options}
-              onMount={handleEditorDidMount}
-              beforeMount={handleEditorBeforeMount}
-              onChange={(newValue) => {
-                setCodeValue(newValue);
-              }}
-              loading={<div className="editor-loading">Loading editor...</div>}
-            />
-          </div>
+        <Panel
+          defaultSize={showTestPanel ? 65 : 100}
+          minSize={30}
+          className="monaco-editor-panel"
+        >
+          <ResizableMonacoEditor
+            currentLanguage={currentLanguage}
+            codeValue={codeValue}
+            // handleEditorDidMount={handleEditorDidMount}
+            setCodeValue={setCodeValue}
+          />
         </Panel>
 
         {showTestPanel && (
           <>
             <PanelResizeHandle className="resize-handle horizontal" />
 
-            <Panel defaultSize={30} minSize={15} className="test-panel">
+            <Panel defaultSize={35} minSize={20} className="test-panel">
               <div className="test-results-container">
                 {/* For Run button results - Tabbed Interface */}
                 {previewTestCases.length > 0 && (
@@ -648,12 +625,12 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
                       {previewTestCases.map((_, index) => (
                         <div
                           key={index}
-                          className={`tab-header ${activeTestTab === index ? "active" : ""} ${
+                          className={`tab-header ${activeTestTab === index ? 'active' : ''} ${
                             testResults[index]
                               ? testResults[index].passed
-                                ? "passed"
-                                : "failed"
-                              : ""
+                                ? 'passed'
+                                : 'failed'
+                              : ''
                           }`}
                           onClick={() => setActiveTestTab(index)}
                         >
@@ -661,9 +638,13 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
                           {testResults[index] && (
                             <span className="tab-status">
                               {testResults[index].passed ? (
-                                <span className="status-icon pass">✓</span>
+                                <span className="status-icon pass">
+                                  <CheckCircleIcon size={18} />
+                                </span>
                               ) : (
-                                <span className="status-icon fail">✗</span>
+                                <span className="status-icon fail">
+                                  <XCircleIcon size={18} />
+                                </span>
                               )}
                             </span>
                           )}
@@ -675,91 +656,96 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
                       {previewTestCases.map((testCase, index) => (
                         <div
                           key={index}
-                          className={`tab-panel ${activeTestTab === index ? "active" : ""}`}
+                          className={`tab-panel ${activeTestTab === index ? 'active' : ''}`}
                         >
                           <div className="test-case-info">
-                            <div className="test-input">
-                              <h4>Input:</h4>
-                              <div className="formatted-params">
-                                {formatTestInput(testCase.input).map(
-                                  (param, paramIndex) => (
-                                    <div
-                                      key={paramIndex}
-                                      className="param-item"
-                                    >
-                                      <div className="param-header">
-                                        <div className="param-name">
-                                          {param.name}
-                                        </div>
-                                        <div className="param-type output-type">
-                                          {param.type}
-                                        </div>
-                                      </div>
-                                      <div className="param-value">
-                                        {param.type === "array" ? (
-                                          <CollapsibleArray array={param.rawValue} />
-                                        ) : param.type === "object" ? (
-                                          <pre>{JSON.stringify(param.rawValue, null, 2)}</pre>
-                                        ) : param.type === "string" ? (
-                                          <pre>"{param.rawValue}"</pre>
-                                        ) : (
-                                          <pre>{String(param.rawValue)}</pre>
-                                        )}
-                                      </div>
-                                    </div>
-                                  ),
-                                )}
-                              </div>
-                            </div>
-
-                            <div className="test-expected">
-                              <h4>Expected Output:</h4>
-                              <FormattedOutput value={testCase.expected} />
-                            </div>
-
-                            {!testResults[index] && !isSubmitting && (
-                              <div className="no-results-message">
-                                <p>
-                                  Click the "Run" button to test your code
-                                  against this test case.
-                                </p>
-                              </div>
-                            )}
-
-                            {isSubmitting && activeTestTab === index && (
+                            {isSubmitting && activeTestTab === index ? (
                               <div className="test-loading">
                                 <div className="loader"></div>
                                 <span>Running test case...</span>
                               </div>
-                            )}
+                            ) : (
+                              <>
+                                {testResults[index] && (
+                                  <div
+                                    className={`test-result ${testResults[index].passed ? 'passed' : 'failed'}`}
+                                  >
+                                    <h4>
+                                      Result:{' '}
+                                      {testResults[index].passed
+                                        ? 'PASSED'
+                                        : 'FAILED'}
+                                    </h4>
 
-                            {testResults[index] && (
-                              <div
-                                className={`test-result ${testResults[index].passed ? "passed" : "failed"}`}
-                              >
-                                <h4>
-                                  Result:{" "}
-                                  {testResults[index].passed
-                                    ? "PASSED"
-                                    : "FAILED"}
-                                </h4>
+                                    {testResults[index].actualOutput && (
+                                      <div className="test-actual">
+                                        <h4>Your Output:</h4>
+                                        <FormattedOutput
+                                          value={
+                                            testResults[index].actualOutput
+                                          }
+                                        />
+                                      </div>
+                                    )}
 
-                                {testResults[index].actualOutput && (
-                                  <div className="test-actual">
-                                    <h4>Your Output:</h4>
-                                    <FormattedOutput
-                                      value={testResults[index].actualOutput}
-                                    />
+                                    {testResults[index].error && (
+                                      <div className="test-error">
+                                        <h4>Error:</h4>
+                                        <pre>{testResults[index].error}</pre>
+                                      </div>
+                                    )}
                                   </div>
                                 )}
 
-                                {testResults[index].error && (
-                                  <div className="test-error">
-                                    <h4>Error:</h4>
-                                    <pre>{testResults[index].error}</pre>
+                                <div className="test-input">
+                                  <h4>Input:</h4>
+                                  <div className="formatted-params">
+                                    {formatTestInput(testCase.input).map(
+                                      (param, paramIndex) => (
+                                        <div
+                                          key={paramIndex}
+                                          className="param-item"
+                                        >
+                                          <div className="param-header">
+                                            <div className="param-name">
+                                              {param.name}
+                                            </div>
+                                            <div className="param-type output-type">
+                                              {param.type}
+                                            </div>
+                                          </div>
+                                          <div className="param-value">
+                                            {param.type === 'array' ? (
+                                              <CollapsibleArray
+                                                array={param.rawValue}
+                                              />
+                                            ) : param.type === 'object' ? (
+                                              <pre>
+                                                {JSON.stringify(
+                                                  param.rawValue,
+                                                  null,
+                                                  2,
+                                                )}
+                                              </pre>
+                                            ) : param.type === 'string' ? (
+                                              <pre>"{param.rawValue}"</pre>
+                                            ) : (
+                                              <pre>
+                                                {String(param.rawValue)}
+                                              </pre>
+                                            )}
+                                          </div>
+                                        </div>
+                                      ),
+                                    )}
                                   </div>
-                                )}
-                              </div>
+                                </div>
+
+                                <div className="test-expected">
+                                  <h4>Expected Output:</h4>
+                                  <FormattedOutput value={testCase.expected} />
+                                </div>
+                              </>
                             )}
                           </div>
                         </div>
@@ -783,23 +769,23 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
 
       <div className="editor-footer">
         <div className="footer-left">
-          <button 
-            className="toggle-panel-button" 
+          <button
+            className="toggle-panel-button"
             onClick={() => setShowTestPanel(!showTestPanel)}
           >
             {showTestPanel ? 'Hide Test Panel' : 'Show Test Panel'}
           </button>
         </div>
         <div className="footer-right">
-          <button 
-            className="run-button" 
+          <button
+            className="run-button"
             onClick={handleRun}
             disabled={isSubmitting || !isEditorReady}
           >
             {isSubmitting ? 'Running...' : 'Run'}
           </button>
-          <button 
-            className="submit-button" 
+          <button
+            className="submit-button"
             onClick={handleSubmit}
             disabled={isSubmitting || !isEditorReady}
           >
@@ -812,12 +798,12 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
       {showModal && (
         <div className="result-modal-overlay" onClick={handleClickOutside}>
           <div
-            className={`result-modal ${modalSuccess ? "success" : "failure"}`}
+            className={`result-modal ${modalSuccess ? 'success' : 'failure'}`}
           >
             <div className="modal-content">
-              <div className="modal-icon">{modalSuccess ? "✅" : "❌"}</div>
+              <div className="modal-icon">{modalSuccess ? '✅' : '❌'}</div>
 
-              {typeof modalMessage === "string" ? (
+              {typeof modalMessage === 'string' ? (
                 <div className="modal-message">{modalMessage}</div>
               ) : (
                 <>
@@ -833,24 +819,19 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
                         <div className="modal-test-input">
                           <div className="modal-test-label">Input:</div>
                           <div className="modal-test-data">
-                            {Object.entries(
-                              modalMessage.failedExample.input,
-                            ).map(([key, val]) => {
-                              const value =
-                                val.value !== undefined ? val.value : val;
+                            {/* {Object.entries(modalMessage.failedExample.input).map(([key, val]) => {
+                              const value = val.value !== undefined ? val.value : val;
                               const formattedValue = Array.isArray(value)
                                 ? formatSingleLineArray(value)
                                 : typeof value === "object" && value !== null
-                                  ? JSON.stringify(value)
-                                  : typeof value === "string"
-                                    ? `"${value}"`
-                                    : String(value);
+                                ? JSON.stringify(value)
+                                : typeof value === "string"
+                                ? `"${value}"`
+                                : String(value);
 
                               return (
                                 <div key={key} className="modal-param">
-                                  <span className="modal-param-name">
-                                    {key}:
-                                  </span>
+                                  <span className="modal-param-name">{key}:</span>
                                   <span className="modal-param-value">
                                     {Array.isArray(value) ? (
                                       <CollapsibleArray array={value} />
@@ -864,7 +845,8 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
                                   </span>
                                 </div>
                               );
-                            })}
+                            })} */}
+                            {modalMessage.failedExample.input}
                           </div>
                         </div>
                       )}
@@ -874,12 +856,14 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
                         <div className="modal-test-label">Expected:</div>
                         <div className="modal-test-data">
                           {(() => {
-                            const value = formatOutput(modalMessage.failedExample.expected);
+                            const value = formatOutput(
+                              modalMessage.failedExample.expected,
+                            );
                             return Array.isArray(value) ? (
                               <CollapsibleArray array={value} />
-                            ) : typeof value === "object" && value !== null ? (
+                            ) : typeof value === 'object' && value !== null ? (
                               <pre>{JSON.stringify(value, null, 2)}</pre>
-                            ) : typeof value === "string" ? (
+                            ) : typeof value === 'string' ? (
                               <pre>"{value}"</pre>
                             ) : (
                               <pre>{String(value)}</pre>
@@ -893,12 +877,14 @@ const CodeEditor = ({ language = "javascript", problemId = "" }) => {
                         <div className="modal-test-label">Your Output:</div>
                         <div className="modal-test-data">
                           {(() => {
-                            const value = formatOutput(modalMessage.failedExample.actual);
+                            const value = formatOutput(
+                              modalMessage.failedExample.actual,
+                            );
                             return Array.isArray(value) ? (
                               <CollapsibleArray array={value} />
-                            ) : typeof value === "object" && value !== null ? (
+                            ) : typeof value === 'object' && value !== null ? (
                               <pre>{JSON.stringify(value, null, 2)}</pre>
-                            ) : typeof value === "string" ? (
+                            ) : typeof value === 'string' ? (
                               <pre>"{value}"</pre>
                             ) : (
                               <pre>{String(value)}</pre>

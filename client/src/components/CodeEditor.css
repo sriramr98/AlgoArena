@@ -60,32 +60,35 @@
 
 /* Horizontal resize handle */
 .resize-handle.horizontal {
-  height: 6px;
+  height: 8px;
+  width: 100%;
   background-color: #444;
   cursor: row-resize;
   transition: background-color 0.2s;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .resize-handle.horizontal::after {
   content: '';
   height: 2px;
   width: 40px;
-  background-color: #666;
+  /* background-color: #666; */
   border-radius: 1px;
 }
 
 .resize-handle.horizontal:hover,
 .resize-handle.horizontal[data-resize-handle-active] {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
-.resize-handle.horizontal:hover::after,
+/* .resize-handle.horizontal:hover::after,
 .resize-handle.horizontal[data-resize-handle-active]::after {
   background-color: #fff;
-}
+} */
 
 .editor-loading {
   display: flex;
@@ -134,7 +137,7 @@
 }
 
 .run-button {
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -145,14 +148,15 @@
 }
 
 .run-button:hover {
-  background-color: #1976D2;
+  background-color: #1976d2;
 }
 
 .run-button:active {
-  background-color: #0D47A1;
+  background-color: #0d47a1;
 }
 
-.run-button:disabled, .submit-button:disabled {
+.run-button:disabled,
+.submit-button:disabled {
   background-color: #777;
   cursor: not-allowed;
 }
@@ -223,7 +227,7 @@
 .toggle-array-btn {
   background: none;
   border: none;
-  color: #2196F3;
+  color: #2196f3;
   font-size: 12px;
   cursor: pointer;
   padding: 4px 8px;
@@ -261,6 +265,8 @@
   background-color: #2d2d2d;
   border-bottom: 1px solid #444;
   overflow-x: auto;
+  height: 40px;
+  flex-shrink: 0;
 }
 
 .tab-header {
@@ -278,6 +284,7 @@
 
 .tab-header .tab-number {
   font-weight: normal;
+  font-size: 16px;
 }
 
 .tab-header .tab-status {
@@ -292,7 +299,7 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  font-size: 12px;
+  /* font-size: 12px; */
   font-weight: bold;
 }
 
@@ -313,7 +320,7 @@
 .tab-header.active {
   background-color: #3c3c3c;
   color: #fff;
-  border-bottom: 2px solid #2196F3;
+  border-bottom: 2px solid #2196f3;
 }
 
 .tab-header.passed {
@@ -333,7 +340,7 @@
 }
 
 .tab-content {
-  padding: 15px;
+  padding: 0 15px;
   background-color: #1e1e1e;
   overflow-y: auto;
   flex-grow: 1;
@@ -350,6 +357,7 @@
 
 .test-case-info {
   color: #ccc;
+  overflow-y: auto;
 }
 
 .test-case-info h4 {
@@ -422,6 +430,10 @@
   color: #e0e0e0;
 }
 
+.test-result {
+  margin-bottom: 15px;
+}
+
 .test-result.passed h4 {
   color: #4caf50;
   margin: 15px 0 8px;
@@ -441,7 +453,7 @@
 }
 
 .test-actual pre {
-  border-left: 3px solid #2196F3;
+  border-left: 3px solid #2196f3;
 }
 
 .test-error pre {
@@ -480,7 +492,9 @@
 }
 
 /* Ensure all array formats have proper styling */
-.collapsed-array, .expanded-array, .single-line-array {
+.collapsed-array,
+.expanded-array,
+.single-line-array {
   background-color: transparent;
   font-family: 'Fira Code', 'Consolas', monospace;
   font-size: 13px;
@@ -513,7 +527,7 @@
   margin: 20px 0;
   padding: 15px;
   background-color: #2d2d2d;
-  border-left: 3px solid #2196F3;
+  border-left: 3px solid #2196f3;
   color: #ccc;
   font-style: italic;
 }
@@ -521,7 +535,7 @@
 .loader {
   border: 3px solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
-  border-top: 3px solid #2196F3;
+  border-top: 3px solid #2196f3;
   width: 24px;
   height: 24px;
   margin-right: 10px;
@@ -529,8 +543,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Styles for the original test results display (for Submit) */
@@ -607,6 +625,10 @@
   gap: 15px;
 }
 
+.test-expected {
+  margin-bottom: 15px;
+}
+
 .test-results .test-input,
 .test-results .test-expected,
 .test-results .test-actual,
@@ -663,8 +685,14 @@
 }
 
 @keyframes modal-popup {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .result-modal.success {
@@ -778,7 +806,7 @@
 }
 
 .modal-param-name {
-  color: #2196F3;
+  color: #2196f3;
   margin-right: 5px;
   flex-shrink: 0;
 }

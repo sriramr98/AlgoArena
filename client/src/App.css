@@ -2,7 +2,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
 body {
@@ -12,7 +14,23 @@ body {
 .App {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  min-width: 650px;
+  overflow-x: auto;
+  background-color: #262626;
+}
+
+.App *::-webkit-scrollbar {
+  width: 8px;
+}
+
+.App *::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 4px;
+}
+
+.App *::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 a {

@@ -10,12 +10,14 @@ const ProblemDetail = () => {
   const [problem, setProblem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   useEffect(() => {
     const fetchProblem = async () => {
       try {
         console.log('Fetching problem with id:', id);
-        const response = await axios.get(`http://localhost:5000/api/problems/${id}`);
+        const response = await axios.get(
+          `http://localhost:5000/api/problems/${id}`,
+        );
         console.log('Problem data received:', response.data);
         setProblem(response.data);
         setLoading(false);
@@ -44,15 +46,21 @@ const ProblemDetail = () => {
   return (
     <div className="problem-detail-container">
       <PanelGroup direction="horizontal">
-        <Panel defaultSize={40} minSize={25} className="problem-description-panel">
+        <Panel
+          defaultSize={30}
+          minSize={25}
+          className="problem-description-panel"
+        >
           <div className="problem-description">
             <div className="problem-header">
               <h1>{problem.title}</h1>
-              <span className={`difficulty ${problem.difficulty.toLowerCase()}`}>
+              <span
+                className={`difficulty ${problem.difficulty.toLowerCase()}`}
+              >
                 {problem.difficulty}
               </span>
             </div>
-            
+
             <div className="problem-content">
               <div className="description">
                 {problem.description.split('\\n\\n').map((paragraph, idx) => (
@@ -90,12 +98,21 @@ const ProblemDetail = () => {
             </div>
           </div>
         </Panel>
-        
+
         <PanelResizeHandle className="resize-handle" />
-        
-        <Panel defaultSize={60} minSize={30} className="code-editor-panel">
-          <div className="code-editor-container" style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-            <CodeEditor 
+
+        <Panel defaultSize={70} minSize={30} className="code-editor-panel">
+          <div
+            className="code-editor-container"
+            style={{
+              height: '100%',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden',
+            }}
+          >
+            <CodeEditor
               language="javascript"
               problemId={id}
               key={id} // Add a key to force re-render when problem changes
