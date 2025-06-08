@@ -5,7 +5,7 @@ import Editor from '@monaco-editor/react';
 export const ResizableMonacoEditor = ({
   currentLanguage,
   codeValue,
-  //   handleEditorDidMount,
+  setIsEditorReady,
   setCodeValue,
 }) => {
   const containerRef = useRef(null);
@@ -29,6 +29,7 @@ export const ResizableMonacoEditor = ({
     bracketPairColorization: { enabled: true },
     autoIndent: 'full',
     tabSize: 4,
+    contextmenu: false,
   };
 
   const handleEditorBeforeMount = (monaco) => {
@@ -48,6 +49,7 @@ export const ResizableMonacoEditor = ({
 
   const handleEditorDidMount = (editor) => {
     editorRef.current = editor;
+    setIsEditorReady(true);
 
     setTimeout(() => {
       editor.layout();

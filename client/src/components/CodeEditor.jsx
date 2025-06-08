@@ -607,7 +607,7 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
           <ResizableMonacoEditor
             currentLanguage={currentLanguage}
             codeValue={codeValue}
-            // handleEditorDidMount={handleEditorDidMount}
+            setIsEditorReady={setIsEditorReady}
             setCodeValue={setCodeValue}
           />
         </Panel>
