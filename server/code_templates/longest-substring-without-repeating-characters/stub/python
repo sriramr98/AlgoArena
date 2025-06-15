@@ -2,7 +2,7 @@
 Problem: Longest Substring Without Repeating Characters
 Write your Python solution here
 """
-def length_of_longest_substring(s):
+def lengthOfLongestSubstring(s):
     # Your code here
     
     return 0  # Replace with your solution
