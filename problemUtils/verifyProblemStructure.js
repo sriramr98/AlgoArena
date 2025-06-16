@@ -1,6 +1,6 @@
-const fs = require('fs');
-const PROBLEMS = require('./../server/problems')
-const SUPPORTED_LANGUAGES = require('./../server/languages');
+import fs from 'fs';
+import { problems } from '../server/problems';
+import { SUPPORTED_LANGUAGES } from '../server/languages';
 
 const getExpectedFunctionDeclaration = (functionName, inputSchema, language) => {
     if (language === 'python') {
@@ -14,7 +14,7 @@ const getExpectedFunctionDeclaration = (functionName, inputSchema, language) => 
     throw new Error(`Unsupported language: ${language}`);
 }
 
-for (const problem of PROBLEMS) {
+for (const problem of problems) {
     const issues = [];
 
     if(!problem.id || typeof problem.id !== 'string') {

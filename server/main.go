@@ -13,24 +13,45 @@ import (
 	"github.com/sriramr98/dsa_server/controllers"
 )
 
-func SetupProblemRoutes(router *gin.RouterGroup) {
+func Cors() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		log.Println("CORS middleware triggered")
+		ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		ctx.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		ctx.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		ctx.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, PATCH, DELETE")
+
+		// Handle preflight OPTIONS requests by aborting with status 204
+		if ctx.Request.Method == "OPTIONS" {
+			ctx.AbortWithStatus(204)
+			return
+		}
+
+		// Call the next handler
+		ctx.Next()
+	}
+}
+
+// Not using router.Group because of https://github.com/gin-gonic/gin/issues/3546
+func SetupProblemRoutes(router *gin.Engine) {
 	pc := controllers.ProblemController{}
-	router.GET("/", pc.GetProblems)
-	router.GET("/:id", pc.GetProblemDetails)
-	router.GET("/:id/stub/:language", pc.GetProblemStub)
-	router.POST("/:id/submit", pc.SubmitProblem)
+	router.GET("/api/problems", pc.GetProblems)
+	router.GET("/api/problems/:id", pc.GetProblemDetails)
+	router.GET("/api/problems/:id/stub/:language", pc.GetProblemStub)
+	router.POST("/api/problems/:id/submit", pc.SubmitProblem)
+	router.GET("/api/problems/:id/testcases", pc.GetProblemTestCases)
 }
 
 func GetRouter() *gin.Engine {
 	router := gin.Default()
+	router.Use(Cors())
 	router.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"success": true,
 		})
 	})
 
-	problemRouter := router.Group("/problems")
-	SetupProblemRoutes(problemRouter)
+	SetupProblemRoutes(router)
 
 	return router
 }
@@ -39,7 +60,7 @@ func main() {
 	router := GetRouter()
 
 	srv := &http.Server{
-		Addr:    ":8080",
+		Addr:    ":5000",
 		Handler: router.Handler(),
 	}
 

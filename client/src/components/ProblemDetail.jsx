@@ -16,10 +16,10 @@ const ProblemDetail = () => {
       try {
         console.log('Fetching problem with id:', id);
         const response = await axios.get(
-          `http://localhost:5000/api/problems/${id}`,
+          `/api/problems/${id}`,
         );
-        console.log('Problem data received:', response.data);
-        setProblem(response.data);
+        console.log('Problem data received:', response.data.data);
+        setProblem(response.data.data);
         setLoading(false);
       } catch (err) {
         setError('Failed to fetch problem details');

@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd server && npx kill-port 5000 && npm run dev",
+    "start": "concurrently \"cd server && make dev\" \"npm run client\"",
+    "server": "cd server && npx kill-port 5000 && make dev",
     "client": "cd client && npx kill-port 3000 && npm run dev",
     "fix-codemirror": "cd client && rm -rf node_modules && npm uninstall @codemirror/basic-setup @codemirror/commands && npm install codemirror@latest && npm install"
   },

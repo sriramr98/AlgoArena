@@ -133,3 +133,18 @@ func (pc ProblemController) SubmitProblem(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, utils.SuccessResponse(res))
 }
+
+func (pc ProblemController) GetProblemTestCases(ctx *gin.Context) {
+	id := ctx.Param("id")
+	problem, err := problems.ProblemForID(id)
+	if err != nil {
+		if errors.Is(err, problems.ErrProblemNotFound) {
+			ctx.JSON(http.StatusNotFound, utils.FailureResponse("Problem not found"))
+			return
+		}
+		ctx.JSON(http.StatusInternalServerError, utils.FailureResponse("Unable to fetch problem"))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, utils.SuccessResponse(problem.TestCases[0:2]))
+}
