@@ -12,21 +12,21 @@ import (
 )
 
 type TestResult struct {
-	Input          map[string]any
-	ExpectedOutput any
-	ActualOutput   any
-	Passed         bool
-	Error          error
+	Input          map[string]any `json:"input"`
+	ExpectedOutput any            `json:"expectedOutput"`
+	ActualOutput   any            `json:"actualOutput"`
+	Passed         bool           `json:"passed"`
+	Error          error          `json:"error,omitempty"`
 }
 
 type JudgeResult struct {
-	Language    string
-	Passed      bool
-	TotalCases  int
-	TotalPassed int
-	TotalFailed int
-	TestResults []TestResult
-	SuccessRate int
+	Language    string       `json:"language"`
+	Passed      bool         `json:"passed"`
+	TotalCases  int          `json:"totalCases"`
+	TotalPassed int          `json:"totalPassed"`
+	TotalFailed int          `json:"totalFailed"`
+	TestResults []TestResult `json:"testResults"`
+	SuccessRate int          `json:"successRate"`
 }
 
 func JudgeProblem(problem problems.Problem, userCode string, language string, noOfTestCases int) (JudgeResult, error) {

@@ -407,11 +407,12 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
 
         // Send the code to the backend for testing
         const response = await axios.post(
-          `/api/submit?preview=${isPreview}`,
+          `/api/submit`,
           {
             code,
             language: currentLanguage,
             problemId: problemId,
+            run: isPreview,
           },
         );
 
