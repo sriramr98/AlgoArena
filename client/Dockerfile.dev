@@ -1,0 +1,20 @@
+# Development Dockerfile for React client
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install dependencies
+COPY package.json package-lock.json* ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy the rest of the application
+# Note: The actual source code will be mounted as a volume in docker-compose
+# This allows for live reloading without rebuilding the container
+
+# Expose development server port
+EXPOSE 3000
+
+# Start development server with hot reloading
+CMD ["npm", "run", "dev"]

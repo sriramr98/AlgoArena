@@ -1,0 +1,60 @@
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    container_name: dsa_server_dev
+    ports:
+      - "5000:5000"
+    volumes:
+      # Mount the entire source code for hot reloading during development
+      - ./server:/app
+    environment:
+      - GIN_MODE=debug
+      - PISTON_API_URL=http://piston:2000
+    # Use development-friendly settings
+    restart: "no"
+    # Enable watch mode with air for hot reload
+    command: air
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O-", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    depends_on:
+      - piston
+      
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    container_name: dsa_client_dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount the client source code for hot reloading during development
+      - ./client:/app
+      # Prevent node_modules from being overwritten by host
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - BACKEND_API_URL=http://server:5000
+    # Use development-friendly settings
+    restart: "no"
+    depends_on:
+      - server
+  
+  piston:
+    image: ghcr.io/engineer-man/piston
+    container_name: piston
+    restart: always
+    privileged: true
+    ports:
+        - 2000:2000
+    volumes:
+        - ./data/piston/packages:/piston/packages
+    tmpfs:
+        - /tmp:exec
+    environment:
+        - PISTON_LOG_LEVEL=DEBUG
