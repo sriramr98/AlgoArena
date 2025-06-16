@@ -259,7 +259,7 @@ func TestJsPreparator_Prepare(t *testing.T) {
 					"let boolean = true;",
 					"let floats = 3.14;",
 				},
-				functionCall: "let result = processData(str, num, arr, obj, boolean floats)",
+				functionCall: "let result = processData(arr, boolean, floats, num, obj, str)",
 				printResult:  "console.log(JSON.stringify(result));",
 			},
 		},

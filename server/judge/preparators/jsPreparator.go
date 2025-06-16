@@ -50,12 +50,11 @@ func (p JsPreparator) Prepare(userCode string, problem problems.Problem, testCas
 
 	var printResult string
 	if problem.ExecutionMode == problems.ReturnMode {
-		// if problem.Output.Type == problems.ArrayType || problem.Output.Type == problems.ObjectType {
-		// 	printResult = "console.log(JSON.stringify(result));"
-		// } else {
-		// 	printResult = "console.log(result);"
-		// }
-		printResult = "console.log(result);"
+		if problem.Output.Type == problems.ArrayType || problem.Output.Type == problems.ObjectType {
+			printResult = "console.log(JSON.stringify(result));"
+		} else {
+			printResult = "console.log(result);"
+		}
 	} else {
 		var outputVariable string
 		for inputKey, inputConf := range problem.Input {
