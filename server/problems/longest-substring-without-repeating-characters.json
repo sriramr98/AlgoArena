@@ -1,0 +1,64 @@
+{
+  "id": "longest-substring-without-repeating-characters",
+  "title": "Longest Substring Without Repeating Characters",
+  "difficulty": "Medium",
+  "description": "Given a string s, find the length of the longest substring without repeating characters.",
+  "examples": [
+    {
+      "input": "Input: s = \"abcabcbb\"",
+      "output": "3",
+      "explanation": "The answer is 'abc', with the length of 3."
+    },
+    {
+      "input": "Input: s = \"bbbbb\"",
+      "output": "1",
+      "explanation": "The answer is 'b', with the length of 1."
+    },
+    {
+      "input": "Input: s = \"pwwkew\"",
+      "output": "3",
+      "explanation": "The answer is 'wke', with the length of 3. Notice that the answer must be a substring, 'pwke' is a subsequence and not a substring."
+    }
+  ],
+  "constraints": [
+    "0 <= s.length <= 5 * 10^4",
+    "s consists of English letters, digits, symbols and spaces."
+  ],
+  "input": {
+    "s": {
+      "type": "string"
+    }
+  },
+  "output": {
+    "type": "number"
+  },
+  "functionName": "lengthOfLongestSubstring",
+  "testCases": [
+    {
+      "input": { "s": "abcabcbb" },
+      "expected": 3
+    },
+    {
+      "input": { "s": "bbbbb" },
+      "expected": 1
+    },
+    {
+      "input": { "s": "pwwkew" },
+      "expected": 3
+    },
+    {
+      "input": { "s": "" },
+      "expected": 0
+    },
+    {
+      "input": { "s": "aab" },
+      "expected": 2
+    },
+    {
+      "input": { "s": "dvdf" },
+      "expected": 3
+    }
+  ],
+  "executionMode": "return",
+  "comparisonMode": "exact"
+}

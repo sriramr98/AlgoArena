@@ -358,14 +358,11 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
   const fetchLanguageStub = async (lang) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/problems/${problemId}/stub`,
-        {
-          params: { language: lang },
-        },
+        `/api/problems/${problemId}/stub/${lang}`
       );
 
-      if (response.data && response.data.codeTemplate) {
-        setCodeValue(response.data.codeTemplate);
+      if (response.data?.data) {
+        setCodeValue(response.data.data);
         return;
       }
     } catch (err) {
@@ -377,13 +374,13 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
   const fetchPreviewTestCases = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/problems/${problemId}/testcases`,
+        `/api/problems/${problemId}/testcases`,
       );
       if (response.data) {
-        setPreviewTestCases(response.data);
+        setPreviewTestCases(response.data.data);
         // Initialize an empty result object for each test case
         const initialResults = {};
-        response.data.forEach((_, index) => {
+        response.data.data.forEach((_, index) => {
           initialResults[index] = null;
         });
         setTestResults(initialResults);
@@ -410,7 +407,7 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
 
         // Send the code to the backend for testing
         const response = await axios.post(
-          `http://localhost:5000/api/submit?preview=${isPreview}`,
+          `/api/submit?preview=${isPreview}`,
           {
             code,
             language: currentLanguage,
