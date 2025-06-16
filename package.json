@@ -7,7 +7,12 @@
     "start": "concurrently \"cd server && make dev\" \"npm run client\"",
     "server": "cd server && npx kill-port 5000 && make dev",
     "client": "cd client && npx kill-port 3000 && npm run dev",
-    "fix-codemirror": "cd client && rm -rf node_modules && npm uninstall @codemirror/basic-setup @codemirror/commands && npm install codemirror@latest && npm install"
+    "fix-codemirror": "cd client && rm -rf node_modules && npm uninstall @codemirror/basic-setup @codemirror/commands && npm install codemirror@latest && npm install",
+    "docker:dev": "cd server && make docker-dev",
+    "docker:dev:build": "cd server && make docker-dev-build",
+    "docker:dev:down": "cd server && make docker-dev-down",
+    "docker:logs": "cd server && make docker-logs",
+    "docker:clean": "cd server && make docker-clean"
   },
   "keywords": [],
   "author": "",

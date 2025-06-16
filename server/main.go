@@ -9,28 +9,10 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/sriramr98/dsa_server/controllers"
 )
-
-func Cors() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		log.Println("CORS middleware triggered")
-		ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-		ctx.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-		ctx.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-		ctx.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, PATCH, DELETE")
-
-		// Handle preflight OPTIONS requests by aborting with status 204
-		if ctx.Request.Method == "OPTIONS" {
-			ctx.AbortWithStatus(204)
-			return
-		}
-
-		// Call the next handler
-		ctx.Next()
-	}
-}
 
 // Not using router.Group because of https://github.com/gin-gonic/gin/issues/3546
 func SetupProblemRoutes(router *gin.Engine) {
@@ -44,7 +26,7 @@ func SetupProblemRoutes(router *gin.Engine) {
 
 func GetRouter() *gin.Engine {
 	router := gin.Default()
-	router.Use(Cors())
+	router.Use(cors.Default())
 	router.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"success": true,

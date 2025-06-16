@@ -1,0 +1,23 @@
+FROM golang:1.24-alpine
+
+WORKDIR /app
+
+# Install air for hot reloading
+RUN go install github.com/air-verse/air@latest
+
+# Install development dependencies
+RUN apk add --no-cache git wget curl
+
+# Copy go.mod and go.sum files
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# The actual source code will be mounted as a volume
+# This allows for live reloading without rebuilding the container
+
+EXPOSE 5000
+
+# air will watch for file changes and rebuild/restart the app
+CMD ["air"]
