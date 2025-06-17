@@ -82,6 +82,10 @@ func (pc ProblemController) GetProblemStub(ctx *gin.Context) {
 	}
 
 	stubGenerator := stub.GetStubGenerator(language)
+	if stubGenerator == nil {
+		ctx.JSON(http.StatusBadRequest, utils.FailureResponse("Unsupported language "+language))
+		return
+	}
 	stub := stubGenerator.Generate(problem)
 
 	ctx.JSON(http.StatusOK, utils.SuccessResponse(stub))
