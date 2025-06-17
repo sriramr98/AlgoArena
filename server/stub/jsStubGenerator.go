@@ -13,7 +13,7 @@ func (g JSStubGenerator) Generate(problem problems.Problem) string {
 	comment := getComment(problem)
 
 	functionArgs := utils.JoinStringSlice(utils.MapKeysSorted(problem.Input), ", ")
-	functionSignature := fmt.Sprintf("function %s(%s) {\n    //Your code here \n\n    return %s\n}", problem.FunctionName, functionArgs, getReturnVariable(problem))
+	functionSignature := fmt.Sprintf("function %s(%s) {\n    // Your code here \n\n    return %s\n}", problem.FunctionName, functionArgs, getReturnVariable(problem))
 
 	return fmt.Sprintf("%s\n%s", comment, functionSignature)
 }
