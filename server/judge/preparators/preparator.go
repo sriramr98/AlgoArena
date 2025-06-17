@@ -14,6 +14,7 @@ type Preparator interface {
 
 var preparators = map[string]Preparator{
 	"javascript": JsPreparator{},
+	"python":     PythonPreparator{},
 }
 
 func GetPreparator(language string) (Preparator, error) {
