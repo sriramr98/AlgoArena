@@ -3,15 +3,13 @@ package controllers
 import (
 	"encoding/base64"
 	"errors"
-	"fmt"
 	"net/http"
-	"os"
-	"path"
 	"slices"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sriramr98/dsa_server/judge"
 	"github.com/sriramr98/dsa_server/problems"
+	"github.com/sriramr98/dsa_server/stub"
 	"github.com/sriramr98/dsa_server/utils"
 )
 
@@ -67,28 +65,30 @@ func (pc ProblemController) GetProblemDetails(ctx *gin.Context) {
 func (pc ProblemController) GetProblemStub(ctx *gin.Context) {
 	id := ctx.Param("id")
 	language := ctx.Param("language")
-	fmt.Printf("Fetching stub for problem %s language %s\n", id, language)
 
 	if !slices.Contains(problems.SUPPORTED_LANGUAGES, language) {
 		ctx.JSON(http.StatusBadRequest, utils.FailureResponse("Unsupported language "+language))
 		return
 	}
 
-	//TODO: Create stub dynamically from the problem definition with sorted args
-	root, err := os.Getwd()
+	problem, err := problems.ProblemForID(id)
 	if err != nil {
-		utils.LogError(err)
-		ctx.JSON(http.StatusInternalServerError, utils.FailureResponse("Something went wrong"))
+		if errors.Is(err, problems.ErrProblemNotFound) {
+			ctx.JSON(http.StatusNotFound, utils.FailureResponse("Problem not found"))
+			return
+		}
+		ctx.JSON(http.StatusInternalServerError, utils.FailureResponse("Unable to fetch problem"))
+		return
 	}
 
-	stubFolderPath := path.Join(root, "code_templates", id, "stub", language)
-	fmt.Println("Stub Path: ", stubFolderPath)
-	data, err := os.ReadFile(stubFolderPath)
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, utils.FailureResponse("Unable to find stub for problem"))
+	stubGenerator := stub.GetStubGenerator(language)
+	if stubGenerator == nil {
+		ctx.JSON(http.StatusBadRequest, utils.FailureResponse("Unsupported language "+language))
+		return
 	}
+	stub := stubGenerator.Generate(problem)
 
-	ctx.JSON(http.StatusOK, utils.SuccessResponse(string(data)))
+	ctx.JSON(http.StatusOK, utils.SuccessResponse(stub))
 }
 
 func (pc ProblemController) SubmitProblem(ctx *gin.Context) {

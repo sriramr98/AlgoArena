@@ -22,10 +22,15 @@
   ],
   "input": {
     "nums": {
-      "type": "array"
+      "type": "array",
+      "childType": {
+        "type": "number"
+      },
+      "description": "An array of integers where each element is between -10^9 and 10^9."
     },
     "target": {
-      "type": "number"
+      "type": "number",
+      "description": "A number between -10^9 and 10^9 representing the target sum."
     }
   },
   "output": {

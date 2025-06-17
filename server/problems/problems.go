@@ -66,8 +66,9 @@ type ProblemExample struct {
 }
 
 type VariableType struct {
-	Type    DataType `json:"type"`
-	SubType DataType `json:"subType"` // For example, if the input is to be an array of strings, Type will be ArrayType and SubType will be StringType
+	Type        DataType      `json:"type"`
+	ChildType   *VariableType `json:"childType,omitempty"`   // For example, if the input is to be an array of strings, Type will be ArrayType and SubType will be StringType
+	Description string        `json:"description,omitempty"` // Description of the variable, useful for documentation
 }
 
 // InputType defines the type of an input parameter

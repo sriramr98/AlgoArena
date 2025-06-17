@@ -22,11 +22,17 @@
   "input": {
     "s": {
       "type": "array",
-      "output": true
+      "output": true,
+      "childType": {
+        "type": "string"
+      }
     }
   },
   "output": {
-    "type": "array"
+    "type": "array",
+    "childType": {
+      "type": "string"
+    }
   },
   "functionName": "reverseString",
   "testCases": [
