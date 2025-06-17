@@ -1,6 +1,7 @@
 package stub
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/sriramr98/dsa_server/problems"
@@ -167,8 +168,10 @@ func TestPythonStubGenerator_Generate(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			g := PythonStubGenerator{}
 			got := g.Generate(tt.problem)
-			if got != tt.want {
-				t.Errorf("PythonStubGenerator.Generate() = %v, want %v", got, tt.want)
+
+			wanted := fmt.Sprintf("from typing import *\n\n%s", tt.want)
+			if got != wanted {
+				t.Errorf("PythonStubGenerator.Generate() = %v, want %v", got, wanted)
 			}
 		})
 	}

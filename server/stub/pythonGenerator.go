@@ -12,7 +12,10 @@ type PythonStubGenerator struct {
 
 func (g PythonStubGenerator) Generate(problem problems.Problem) string {
 	functionArgs := getFunctionArgs(problem)
-	stub := fmt.Sprintf("def %s(%s)", problem.FunctionName, functionArgs)
+
+	imports := "from typing import *"
+
+	stub := fmt.Sprintf("%s\n\ndef %s(%s)", imports, problem.FunctionName, functionArgs)
 
 	if problem.ExecutionMode == problems.ReturnMode {
 		stub += " -> " + getPyType(problem.Output.VariableType.Type, problem.Output.VariableType.ChildType)
