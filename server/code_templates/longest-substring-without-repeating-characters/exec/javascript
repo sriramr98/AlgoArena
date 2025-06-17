@@ -1,4 +1,0 @@
-{user_code}
-
-const result = longestSubstringWithoutRepeatingCharacters({s});
-console.log(result);

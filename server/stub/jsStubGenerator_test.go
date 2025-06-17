@@ -31,7 +31,7 @@ func TestJSStubGenerator_Generate(t *testing.T) {
 					},
 				},
 			},
-			want: "/**\n * @param {number} n - a non-negative integer\n*/\nfunction factorial(n) {\n //Your code here \n\n return 0\n}",
+			want: "/**\n * @param {number} n - a non-negative integer\n*/\nfunction factorial(n) {\n // Your code here \n\n return 0\n}",
 		},
 		{
 			name: "problem_with_multiple_inputs_of_different_types",
@@ -57,7 +57,7 @@ func TestJSStubGenerator_Generate(t *testing.T) {
 					},
 				},
 			},
-			want: "/**\n * @param {string} s - the input string\n * @param {string} target - the substring to find\n*/\nfunction findSubstring(s, target) {\n //Your code here \n\n return 0\n}",
+			want: "/**\n * @param {string} s - the input string\n * @param {string} target - the substring to find\n*/\nfunction findSubstring(s, target) {\n // Your code here \n\n return 0\n}",
 		},
 		{
 			name: "problem_with_array_input_and_array_output",
@@ -83,7 +83,7 @@ func TestJSStubGenerator_Generate(t *testing.T) {
 					},
 				},
 			},
-			want: "/**\n * @param {number[]} nums - array of integers\n*/\nfunction reverseArray(nums) {\n //Your code here \n\n return []\n}",
+			want: "/**\n * @param {number[]} nums - array of integers\n*/\nfunction reverseArray(nums) {\n // Your code here \n\n return []\n}",
 		},
 		{
 			name: "problem_with_object_input_and_string_output",
@@ -103,7 +103,7 @@ func TestJSStubGenerator_Generate(t *testing.T) {
 					},
 				},
 			},
-			want: "/**\n * @param {Object} person - person object with name and age\n*/\nfunction formatPerson(person) {\n //Your code here \n\n return \"\"\n}",
+			want: "/**\n * @param {Object} person - person object with name and age\n*/\nfunction formatPerson(person) {\n // Your code here \n\n return \"\"\n}",
 		},
 		{
 			name: "problem_with_boolean_input_and_output",
@@ -123,7 +123,7 @@ func TestJSStubGenerator_Generate(t *testing.T) {
 					},
 				},
 			},
-			want: "/**\n * @param {number} num - an integer to check\n*/\nfunction isEven(num) {\n //Your code here \n\n return false\n}",
+			want: "/**\n * @param {number} num - an integer to check\n*/\nfunction isEven(num) {\n // Your code here \n\n return false\n}",
 		},
 		{
 			name: "problem_with_array_of_arrays",
@@ -151,7 +151,7 @@ func TestJSStubGenerator_Generate(t *testing.T) {
 					},
 				},
 			},
-			want: "/**\n * @param {number[][]} matrix - 2D matrix\n*/\nfunction transpose(matrix) {\n //Your code here \n\n return []\n}",
+			want: "/**\n * @param {number[][]} matrix - 2D matrix\n*/\nfunction transpose(matrix) {\n // Your code here \n\n return []\n}",
 		},
 	}
 
