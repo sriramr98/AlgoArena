@@ -23,7 +23,8 @@ services:
       retries: 3
       start_period: 5s
     depends_on:
-      - piston
+      piston:
+        condition: service_healthy
       
   client:
     build:
@@ -58,3 +59,9 @@ services:
         - /tmp:exec
     environment:
         - PISTON_LOG_LEVEL=DEBUG
+    healthcheck:
+      test: ["CMD-SHELL", "/bin/sh -c 'ps aux | grep -v grep | grep -q piston'"] # Check if the piston process is running. We do this since curl or wget isn't present in piston image.
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
