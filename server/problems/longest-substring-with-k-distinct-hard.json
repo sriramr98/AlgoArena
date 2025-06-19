@@ -1,0 +1,107 @@
+{
+  "id": "longest-substring-with-k-distinct-hard",
+  "title": "Longest Substring with K Distinct Characters",
+  "difficulty": "Hard",
+  "description": "Given a string, find the length of the longest substring in it with no more than K distinct characters.",
+  "examples": [
+    {
+      "input": "s = \"araaci\", K = 2",
+      "output": "4",
+      "explanation": "The longest substring with no more than '2' distinct characters is \"araa\"."
+    },
+    {
+      "input": "s = \"araaci\", K = 1",
+      "output": "2",
+      "explanation": "The longest substring with no more than '1' distinct character is \"aa\"."
+    },
+    {
+      "input": "s = \"cbbebi\", K = 3",
+      "output": "5",
+      "explanation": "The longest substrings with no more than '3' distinct characters are \"cbbeb\" & \"bbebi\"."
+    },
+    {
+      "input": "s = \"abaccc\", K = 2",
+      "output": "4",
+      "explanation": "The longest substring with no more than '2' distinct characters is \"accc\"."
+    }
+  ],
+  "constraints": [
+    "1 <= s.length <= 5 * 10^4",
+    "0 <= K <= 26"
+  ],
+  "input": {
+    "s": {
+      "type": "string",
+      "description": "The input string consisting of lowercase English letters."
+    },
+    "K": {
+      "type": "number",
+      "description": "The maximum number of distinct characters allowed in the substring."
+    }
+  },
+  "output": {
+    "type": "number",
+    "description": "The length of the longest substring with no more than K distinct characters."
+  },
+  "functionName": "longestSubstringWithKDistinct",
+  "executionMode": "return",
+  "comparisonMode": "exact",
+  "testCases": [
+    {
+      "input": {
+        "s": "araaci",
+        "K": 2
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "s": "araaci",
+        "K": 1
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "s": "cbbebi",
+        "K": 3
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "s": "cbbebi",
+        "K": 10
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "s": "abaccc",
+        "K": 2
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "s": "world",
+        "K": 5
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "s": "zzzzzz",
+        "K": 1
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "s": "abcdef",
+        "K": 0
+      },
+      "expected": 0
+    }
+  ]
+}

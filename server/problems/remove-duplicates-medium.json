@@ -1,0 +1,95 @@
+{
+  "id": "remove-duplicates-medium",
+  "title": "Remove Duplicates from Sorted Array",
+  "difficulty": "Medium",
+  "description": "Given a sorted array nums, remove the duplicates in-place such that each element appears only once and returns the new length of the array. Do not allocate extra space for another array; you must do this by modifying the input array in-place with O(1) extra memory. The elements beyond the new length do not matter.",
+  "examples": [
+    {
+      "input": "nums = [1,1,2]",
+      "output": "2, nums = [1,2,_]",
+      "explanation": "Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively. It does not matter what you leave beyond the returned length."
+    },
+    {
+      "input": "nums = [0,0,1,1,1,2,2,3,3,4]",
+      "output": "5, nums = [0,1,2,3,4,_,_,_,_,_]",
+      "explanation": "Your function should return length = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively."
+    }
+  ],
+  "constraints": [
+    "0 <= nums.length <= 3 * 10^4",
+    "-100 <= nums[i] <= 100",
+    "nums is sorted in ascending order."
+  ],
+  "input": {
+    "nums": {
+      "type": "array",
+      "childType": {
+        "type": "number"
+      },
+      "description": "A sorted array of integers."
+    }
+  },
+  "output": {
+    "type": "number",
+    "description": "The new length of the array after removing duplicates. The input array `nums` is modified in-place."
+  },
+  "functionName": "removeDuplicates",
+  "executionMode": "in-place",
+  "comparisonMode": "exact",
+  "testCases": [
+    {
+      "input": {
+        "nums": [1,1,2]
+      },
+      "expected": 2,
+      "expectedModifiedInput": {
+        "nums": [1,2]
+      }
+    },
+    {
+      "input": {
+        "nums": [0,0,1,1,1,2,2,3,3,4]
+      },
+      "expected": 5,
+      "expectedModifiedInput": {
+        "nums": [0,1,2,3,4]
+      }
+    },
+    {
+      "input": {
+        "nums": []
+      },
+      "expected": 0,
+      "expectedModifiedInput": {
+        "nums": []
+      }
+    },
+    {
+      "input": {
+        "nums": [1,2,3,4,5]
+      },
+      "expected": 5,
+      "expectedModifiedInput": {
+        "nums": [1,2,3,4,5]
+      }
+    },
+    {
+      "input": {
+        "nums": [1,1,1,1,1]
+      },
+      "expected": 1,
+      "expectedModifiedInput": {
+        "nums": [1]
+      }
+    },
+    {
+      "input": {
+        "nums": [-5,-5,-3,-1,-1,0,0,0,2,4,4]
+      },
+      "expected": 6,
+      "expectedModifiedInput": {
+        "nums": [-5,-3,-1,0,2,4]
+      }
+    }
+  ]
+}

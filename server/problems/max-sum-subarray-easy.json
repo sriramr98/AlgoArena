@@ -1,0 +1,80 @@
+{
+  "id": "max-sum-subarray-easy",
+  "title": "Maximum Sum Subarray of Size K",
+  "difficulty": "Easy",
+  "description": "Given an array of positive numbers and a positive number ‘k,’ find the maximum sum of any contiguous subarray of size ‘k’.",
+  "examples": [
+    {
+      "input": "nums = [2, 1, 5, 1, 3, 2], k = 3",
+      "output": "9",
+      "explanation": "Subarray with maximum sum is [5, 1, 3]."
+    },
+    {
+      "input": "nums = [2, 3, 4, 1, 5], k = 2",
+      "output": "7",
+      "explanation": "Subarray with maximum sum is [3, 4]."
+    }
+  ],
+  "constraints": [
+    "1 <= nums.length <= 10^5",
+    "1 <= nums[i] <= 100",
+    "1 <= k <= nums.length"
+  ],
+  "input": {
+    "nums": {
+      "type": "array",
+      "childType": {
+        "type": "number"
+      },
+      "description": "An array of positive integers."
+    },
+    "k": {
+      "type": "number",
+      "description": "The size of the subarray."
+    }
+  },
+  "output": {
+    "type": "number",
+    "description": "The maximum sum of a contiguous subarray of size k."
+  },
+  "functionName": "maxSumSubarrayEasy",
+  "executionMode": "return",
+  "comparisonMode": "exact",
+  "testCases": [
+    {
+      "input": {
+        "nums": [2, 1, 5, 1, 3, 2],
+        "k": 3
+      },
+      "expected": 9
+    },
+    {
+      "input": {
+        "nums": [2, 3, 4, 1, 5],
+        "k": 2
+      },
+      "expected": 7
+    },
+    {
+      "input": {
+        "nums": [1, 1, 1, 1, 1],
+        "k": 1
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "nums": [10, 20, 30, 40, 50],
+        "k": 5
+      },
+      "expected": 150
+    },
+    {
+      "input": {
+        "nums": [5, 5, 5, 5, 5, 1, 2, 3, 4, 5],
+        "k": 3
+      },
+      "expected": 15
+    }
+  ]
+}

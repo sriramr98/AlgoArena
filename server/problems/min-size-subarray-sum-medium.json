@@ -1,0 +1,97 @@
+{
+  "id": "min-size-subarray-sum-medium",
+  "title": "Minimum Size Subarray Sum",
+  "difficulty": "Medium",
+  "description": "Given an array of positive numbers and a positive number ‘s,’ find the length of the smallest contiguous subarray whose sum is greater than or equal to ‘s’. Return 0 if no such subarray exists.",
+  "examples": [
+    {
+      "input": "nums = [2, 1, 5, 2, 3, 2], s = 7",
+      "output": "2",
+      "explanation": "The smallest subarray with a sum greater than or equal to '7' is [5, 2]."
+    },
+    {
+      "input": "nums = [2, 1, 5, 2, 8], s = 7",
+      "output": "1",
+      "explanation": "The smallest subarray with a sum greater than or equal to '7' is [8]."
+    },
+    {
+      "input": "nums = [1, 4, 4], s = 4",
+      "output": "1",
+      "explanation": "The smallest subarray with a sum greater than or equal to '4' is [4]."
+    },
+    {
+      "input": "nums = [1,1,1,1,1,1,1,1], s = 100",
+      "output": "0",
+      "explanation": "No subarray sum is greater than or equal to 100."
+    }
+  ],
+  "constraints": [
+    "1 <= nums.length <= 10^5",
+    "1 <= nums[i] <= 100",
+    "1 <= s <= 10^9"
+  ],
+  "input": {
+    "nums": {
+      "type": "array",
+      "childType": {
+        "type": "number"
+      },
+      "description": "An array of positive integers."
+    },
+    "s": {
+      "type": "number",
+      "description": "The target sum."
+    }
+  },
+  "output": {
+    "type": "number",
+    "description": "The length of the smallest contiguous subarray whose sum is >= s. Returns 0 if no such subarray is found."
+  },
+  "functionName": "minSubArrayLen",
+  "executionMode": "return",
+  "comparisonMode": "exact",
+  "testCases": [
+    {
+      "input": {
+        "nums": [2, 1, 5, 2, 3, 2],
+        "s": 7
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "nums": [2, 1, 5, 2, 8],
+        "s": 7
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "nums": [1, 4, 4],
+        "s": 4
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "nums": [1,1,1,1,1,1,1,1],
+        "s": 100
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "nums": [3, 4, 1, 1, 6],
+        "s": 8
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "nums": [10, 2, 3, 7, 8, 1, 9],
+        "s": 15
+      },
+      "expected": 2
+    }
+  ]
+}
