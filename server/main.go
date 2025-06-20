@@ -47,7 +47,7 @@ func main() {
 	router := GetRouter()
 
 	srv := &http.Server{
-		Addr:    ":5000",
+		Addr:    ":8080",
 		Handler: router.Handler(),
 	}
 

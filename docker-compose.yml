@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile.dev
     container_name: dsa_server_dev
     ports:
-      - "5000:5000"
+      - "8080:8080"
     volumes:
       # Mount the entire source code for hot reloading during development
       - ./server:/app
@@ -40,7 +40,7 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-      - BACKEND_API_URL=http://server:5000
+      - BACKEND_API_URL=http://server:8080
     # Use development-friendly settings
     restart: "no"
     depends_on:

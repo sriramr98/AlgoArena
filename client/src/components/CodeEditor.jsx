@@ -358,7 +358,7 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
   const fetchLanguageStub = async (lang) => {
     try {
       const response = await axios.get(
-        `/api/problems/${problemId}/stub/${lang}`
+        `/api/problems/${problemId}/stub/${lang}`,
       );
 
       if (response.data?.data) {
@@ -373,9 +373,7 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
 
   const fetchPreviewTestCases = async () => {
     try {
-      const response = await axios.get(
-        `/api/problems/${problemId}/testcases`,
-      );
+      const response = await axios.get(`/api/problems/${problemId}/testcases`);
       if (response.data) {
         setPreviewTestCases(response.data.data);
         // Initialize an empty result object for each test case
@@ -406,22 +404,19 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
         console.log(`${isPreview ? 'Running' : 'Submitting'} code:`, code);
 
         // Send the code to the backend for testing
-        const response = await axios.post(
-          `/api/submit`,
-          {
-            code,
-            language: currentLanguage,
-            problemId: problemId,
-            run: isPreview,
-          },
-        );
+        const response = await axios.post(`/api/problems/${problemId}/submit`, {
+          code,
+          language: currentLanguage,
+          problemId: problemId,
+          run: isPreview,
+        });
 
         // Small delay before updating state to allow UI to stabilize
         setTimeout(() => {
           if (isPreview) {
             // Update test results for each test case
             const newTestResults = { ...testResults };
-            response.data.testResults.forEach((result, index) => {
+            response.data.data.testResults.forEach((result, index) => {
               newTestResults[index] = result;
             });
             setTestResults(newTestResults);
@@ -430,7 +425,12 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
             setResults(response.data);
 
             // Show result in a modal instead
-            const { passed, total, success, testResults } = response.data;
+            const {
+              passed: success,
+              totalPassed: passed,
+              totalCases: total,
+              testResults,
+            } = response.data.data;
 
             if (success) {
               setModalMessage('You have successfully completed the problem!');
@@ -462,11 +462,11 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
           setIsSubmitting(false);
 
           // Manually trigger editor layout after results are displayed
-          if (editorRef.current) {
-            setTimeout(() => {
-              editorRef.current.layout();
-            }, 200);
-          }
+          // if (editorRef.current) {
+          //   setTimeout(() => {
+          //     editorRef.current.layout();
+          //   }, 200);
+          // }
         }, 100);
       } catch (err) {
         console.error(
@@ -499,7 +499,7 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
   const handleRun = () => {
     handleCodeExecution(true);
     // Reset to show the first test case tab when running
-    setActiveTestTab(0);
+    // setActiveTestTab(0);
   };
 
   // Function to submit code (runs all test cases)
@@ -558,28 +558,6 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
     }
   }, [results, error, testResults]);
 
-  // Monaco editor options
-  const options = {
-    selectOnLineNumbers: true,
-    roundedSelection: false,
-    readOnly: false,
-    cursorStyle: 'line',
-    // Disable automaticLayout - we'll handle layout manually to avoid ResizeObserver issues
-    automaticLayout: false,
-    minimap: { enabled: false },
-    scrollBeyondLastLine: false,
-    lineNumbers: 'on',
-    wordWrap: 'on',
-    folding: true,
-    lineDecorationsWidth: 7,
-    fontSize: 18,
-    fontFamily: "'Fira Code', 'Consolas', 'Monaco', monospace",
-    suggestFontSize: 18,
-    bracketPairColorization: { enabled: true },
-    autoIndent: 'full',
-    tabSize: 4,
-  };
-
   return (
     <div className="code-editor">
       <div className="editor-toolbar">
@@ -607,6 +585,7 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
             codeValue={codeValue}
             setIsEditorReady={setIsEditorReady}
             setCodeValue={setCodeValue}
+            editorRef={editorRef}
           />
         </Panel>
 
@@ -695,6 +674,13 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
                                   </div>
                                 )}
 
+                                {error && (
+                                  <div className="test-results error">
+                                    <h3>Error</h3>
+                                    <div className="error-message">{error}</div>
+                                  </div>
+                                )}
+
                                 <div className="test-input">
                                   <h4>Input:</h4>
                                   <div className="formatted-params">
@@ -753,12 +739,6 @@ const CodeEditor = ({ language = 'javascript', problemId = '' }) => {
                 )}
 
                 {/* For Submit button results - Show errors only */}
-                {error && (
-                  <div className="test-results error">
-                    <h3>Error</h3>
-                    <div className="error-message">{error}</div>
-                  </div>
-                )}
               </div>
             </Panel>
           </>

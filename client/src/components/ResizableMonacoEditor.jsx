@@ -7,16 +7,16 @@ export const ResizableMonacoEditor = ({
   codeValue,
   setIsEditorReady,
   setCodeValue,
+  editorRef,
 }) => {
   const containerRef = useRef(null);
-  const editorRef = useRef(null);
 
   const options = {
     selectOnLineNumbers: true,
     roundedSelection: false,
     readOnly: false,
     cursorStyle: 'line',
-    automaticLayout: false,
+    automaticLayout: true,
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
     lineNumbers: 'on',
