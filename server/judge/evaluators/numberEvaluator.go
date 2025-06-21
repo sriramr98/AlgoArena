@@ -3,15 +3,15 @@ package evaluators
 import (
 	"errors"
 	"strconv"
+	"strings"
 
-	"github.com/sriramr98/dsa_server/judge/executors"
 	"github.com/sriramr98/dsa_server/problems"
 )
 
 type IntegerEvaluator struct{}
 
-func (ne IntegerEvaluator) Evaluate(executionResult executors.ExecutorOutput, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
-	actualResult, err := strconv.Atoi(executionResult.Run.Stdout)
+func (ne IntegerEvaluator) Evaluate(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
+	actualResult, err := strconv.Atoi(strings.TrimSpace(output))
 	if err != nil {
 		return EvaluatorResult{}, err
 	}

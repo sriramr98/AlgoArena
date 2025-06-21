@@ -4,7 +4,6 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/sriramr98/dsa_server/judge/executors"
 	"github.com/sriramr98/dsa_server/problems"
 	"github.com/stretchr/testify/assert"
 )
@@ -12,7 +11,7 @@ import (
 func TestIntegerEvaluator_Evaluate(t *testing.T) {
 	tests := []struct {
 		name           string
-		executorOutput executors.ExecutorOutput
+		executorOutput string
 		testCase       problems.TestCase
 		comparisonMode problems.ComparisonMode
 		want           EvaluatorResult
@@ -20,12 +19,8 @@ func TestIntegerEvaluator_Evaluate(t *testing.T) {
 		expectedErr    error
 	}{
 		{
-			name: "successful evaluation with matching values",
-			executorOutput: executors.ExecutorOutput{
-				Run: executors.RunOutput{
-					Stdout: "42",
-				},
-			},
+			name:           "successful evaluation with matching values",
+			executorOutput: "42",
 			testCase: problems.TestCase{
 				Expected: 42,
 			},
@@ -38,12 +33,8 @@ func TestIntegerEvaluator_Evaluate(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "successful evaluation with non-matching values",
-			executorOutput: executors.ExecutorOutput{
-				Run: executors.RunOutput{
-					Stdout: "43",
-				},
-			},
+			name:           "successful evaluation with non-matching values",
+			executorOutput: "43",
 			testCase: problems.TestCase{
 				Expected: 42,
 			},
@@ -56,12 +47,22 @@ func TestIntegerEvaluator_Evaluate(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "invalid stdout - not a number",
-			executorOutput: executors.ExecutorOutput{
-				Run: executors.RunOutput{
-					Stdout: "not a number",
-				},
+			name:           "successful evaluation with trailing newline",
+			executorOutput: "42\n",
+			testCase: problems.TestCase{
+				Expected: 42,
 			},
+			want: EvaluatorResult{
+				Passed:         true,
+				ActualOutput:   42,
+				ExpectedOutput: 42,
+				Error:          nil,
+			},
+			wantErr: false,
+		},
+		{
+			name:           "invalid stdout - not a number",
+			executorOutput: "not a number",
 			testCase: problems.TestCase{
 				Expected: 42,
 			},
@@ -69,12 +70,8 @@ func TestIntegerEvaluator_Evaluate(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "expected type is not int",
-			executorOutput: executors.ExecutorOutput{
-				Run: executors.RunOutput{
-					Stdout: "42",
-				},
-			},
+			name:           "expected type is not int",
+			executorOutput: "42",
 			testCase: problems.TestCase{
 				Expected: "42", // string instead of int
 			},
@@ -87,7 +84,8 @@ func TestIntegerEvaluator_Evaluate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			ne := IntegerEvaluator{}
-			got, err := ne.Evaluate(tt.executorOutput, tt.testCase, tt.comparisonMode)
+			stdout := tt.executorOutput
+			got, err := ne.Evaluate(stdout, tt.testCase, tt.comparisonMode)
 
 			if tt.wantErr {
 				assert.Error(t, err)

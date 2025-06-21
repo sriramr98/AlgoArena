@@ -3,7 +3,6 @@ package evaluators
 import (
 	"testing"
 
-	"github.com/sriramr98/dsa_server/judge/executors"
 	"github.com/sriramr98/dsa_server/problems"
 )
 
@@ -70,17 +69,11 @@ func TestBooleanEvaluator_Evaluate(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			executorOutput := executors.ExecutorOutput{
-				Run: executors.RunOutput{
-					Stdout: tt.output,
-				},
-			}
-
 			testCase := problems.TestCase{
 				Expected: tt.expected,
 			}
 
-			result, err := evaluator.Evaluate(executorOutput, testCase, tt.comparisonMode)
+			result, err := evaluator.Evaluate(tt.output, testCase, tt.comparisonMode)
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("BooleanEvaluator.Evaluate() error = %v, wantErr %v", err, tt.wantErr)

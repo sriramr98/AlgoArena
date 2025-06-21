@@ -5,15 +5,14 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/sriramr98/dsa_server/judge/executors"
 	"github.com/sriramr98/dsa_server/problems"
 )
 
 type BooleanEvaluator struct{}
 
-func (be BooleanEvaluator) Evaluate(executionResult executors.ExecutorOutput, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
+func (be BooleanEvaluator) Evaluate(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
 	// Trim any whitespace and convert to lowercase for comparison
-	actualResultStr := strings.ToLower(strings.TrimSpace(executionResult.Run.Stdout))
+	actualResultStr := strings.ToLower(strings.TrimSpace(output))
 
 	// Parse the boolean value from the string output
 	actualResult, err := strconv.ParseBool(actualResultStr)

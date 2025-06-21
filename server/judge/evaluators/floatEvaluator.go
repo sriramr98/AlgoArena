@@ -5,18 +5,14 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/sriramr98/dsa_server/judge/executors"
 	"github.com/sriramr98/dsa_server/problems"
 )
 
 type FloatEvaluator struct{}
 
-func (fe FloatEvaluator) Evaluate(executionResult executors.ExecutorOutput, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
-	// Trim any whitespace from the output
-	trimmedOutput := strings.TrimSpace(executionResult.Run.Stdout)
-
+func (fe FloatEvaluator) Evaluate(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
 	// Convert the string to a float64
-	actualResult, err := strconv.ParseFloat(trimmedOutput, 64)
+	actualResult, err := strconv.ParseFloat(strings.TrimSpace(output), 64)
 	if err != nil {
 		return EvaluatorResult{}, err
 	}

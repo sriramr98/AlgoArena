@@ -3,7 +3,6 @@ package evaluators
 import (
 	"fmt"
 
-	"github.com/sriramr98/dsa_server/judge/executors"
 	"github.com/sriramr98/dsa_server/problems"
 )
 
@@ -15,7 +14,7 @@ type EvaluatorResult struct {
 }
 
 type Evaluator interface {
-	Evaluate(executionResult executors.ExecutorOutput, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error)
+	Evaluate(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error)
 }
 
 func GetEvaluator(problem problems.Problem) (Evaluator, error) {

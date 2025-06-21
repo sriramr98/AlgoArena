@@ -3,6 +3,7 @@ package judge
 import (
 	"errors"
 	"log"
+	"strings"
 
 	"github.com/sriramr98/dsa_server/judge/evaluators"
 	"github.com/sriramr98/dsa_server/judge/executors"
@@ -73,7 +74,9 @@ func JudgeProblem(problem problems.Problem, userCode string, language string, no
 			return judgeResult, err
 		}
 
-		evaluationResult, err := evaluator.Evaluate(executionResult, testCase, problem.ComparisonMode)
+		output := strings.TrimSpace(executionResult.Run.Stdout)
+
+		evaluationResult, err := evaluator.Evaluate(output, testCase, problem.ComparisonMode)
 		if err != nil {
 			utils.LogError(err)
 			return judgeResult, err

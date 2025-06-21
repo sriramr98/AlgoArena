@@ -3,15 +3,15 @@ package evaluators
 import (
 	"encoding/json"
 	"errors"
+	"strings"
 
-	"github.com/sriramr98/dsa_server/judge/executors"
 	"github.com/sriramr98/dsa_server/problems"
 )
 
 type ArrayEvaluator struct{}
 
-func (ae ArrayEvaluator) Evaluate(executionResult executors.ExecutorOutput, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
-	actualResult, err := format(executionResult.Run.Stdout)
+func (ae ArrayEvaluator) Evaluate(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
+	actualResult, err := format(strings.TrimSpace(output))
 	if err != nil {
 		return EvaluatorResult{}, err
 	}
