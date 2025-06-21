@@ -23,6 +23,14 @@ func GetEvaluator(problem problems.Problem) (Evaluator, error) {
 	switch problem.Output.Type {
 	case problems.ArrayType:
 		return ArrayEvaluator{}, nil
+	case problems.NumberType:
+		return IntegerEvaluator{}, nil
+	case problems.FloatType:
+		return FloatEvaluator{}, nil
+	case problems.StringType:
+		return StringEvaluator{}, nil
+	case problems.BooleanType:
+		return BooleanEvaluator{}, nil
 	default:
 		return defaultEval, fmt.Errorf("no evaluator found for output type %s", problem.Output.Type)
 	}

@@ -2,9 +2,16 @@ module github.com/sriramr98/dsa_server
 
 go 1.24
 
-require github.com/gin-contrib/cors v1.7.5
+require (
+	github.com/gin-contrib/cors v1.7.5
+	github.com/stretchr/testify v1.10.0
+)
 
-require github.com/kr/text v0.2.0 // indirect
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/kr/text v0.2.0 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+)
 
 require (
 	github.com/bytedance/sonic v1.13.2 // indirect
