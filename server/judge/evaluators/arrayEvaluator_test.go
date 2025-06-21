@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/sriramr98/dsa_server/judge/executors"
 	"github.com/sriramr98/dsa_server/problems"
 )
 
@@ -224,7 +223,7 @@ func TestArrayEvaluatorFormat(t *testing.T) {
 func TestArrayEvaluatorEvaluate(t *testing.T) {
 	testCases := []struct {
 		Name             string
-		ExecOutput       executors.ExecutorOutput
+		ExecOutput       string
 		TestCase         problems.TestCase
 		ComparisonMode   problems.ComparisonMode
 		ExpectedResult   EvaluatorResult
@@ -233,12 +232,8 @@ func TestArrayEvaluatorEvaluate(t *testing.T) {
 		MockUnmarshalErr bool
 	}{
 		{
-			Name: "ordered comparison that passes",
-			ExecOutput: executors.ExecutorOutput{
-				Run: executors.RunOutput{
-					Stdout: `[1, 2, 3]`,
-				},
-			},
+			Name:       "ordered comparison that passes",
+			ExecOutput: "[1, 2, 3]",
 			TestCase: problems.TestCase{
 				Expected: []any{float64(1), float64(2), float64(3)},
 			},
@@ -252,12 +247,8 @@ func TestArrayEvaluatorEvaluate(t *testing.T) {
 			ExpectError: false,
 		},
 		{
-			Name: "ordered comparison that fails",
-			ExecOutput: executors.ExecutorOutput{
-				Run: executors.RunOutput{
-					Stdout: `[3, 2, 1]`,
-				},
-			},
+			Name:       "ordered comparison that fails",
+			ExecOutput: "[3, 2, 1]",
 			TestCase: problems.TestCase{
 				Expected: []any{float64(1), float64(2), float64(3)},
 			},
@@ -271,12 +262,8 @@ func TestArrayEvaluatorEvaluate(t *testing.T) {
 			ExpectError: false,
 		},
 		{
-			Name: "unordered comparison that passes",
-			ExecOutput: executors.ExecutorOutput{
-				Run: executors.RunOutput{
-					Stdout: `[3, 1, 2]`,
-				},
-			},
+			Name:       "unordered comparison that passes",
+			ExecOutput: "[3, 1, 2]",
 			TestCase: problems.TestCase{
 				Expected: []any{float64(1), float64(2), float64(3)},
 			},
@@ -290,12 +277,8 @@ func TestArrayEvaluatorEvaluate(t *testing.T) {
 			ExpectError: false,
 		},
 		{
-			Name: "expected not an array",
-			ExecOutput: executors.ExecutorOutput{
-				Run: executors.RunOutput{
-					Stdout: `[1, 2, 3]`,
-				},
-			},
+			Name:       "expected not an array",
+			ExecOutput: "[1, 2, 3]",
 			TestCase: problems.TestCase{
 				Expected: "not an array",
 			},
@@ -304,12 +287,8 @@ func TestArrayEvaluatorEvaluate(t *testing.T) {
 			ErrorContains:  "expected data type doesn't match",
 		},
 		{
-			Name: "invalid json in stdout",
-			ExecOutput: executors.ExecutorOutput{
-				Run: executors.RunOutput{
-					Stdout: `[1, 2, 3`,
-				},
-			},
+			Name:       "invalid json in stdout",
+			ExecOutput: "[1, 2, 3",
 			TestCase: problems.TestCase{
 				Expected: []any{float64(1), float64(2), float64(3)},
 			},
@@ -321,8 +300,8 @@ func TestArrayEvaluatorEvaluate(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.Name, func(t *testing.T) {
-			evaluator := ArrayEvaluator{}
-			result, err := evaluator.Evaluate(testCase.ExecOutput, testCase.TestCase, testCase.ComparisonMode)
+			stdout := testCase.ExecOutput
+			result, err := EvaluateArray(stdout, testCase.TestCase, testCase.ComparisonMode)
 
 			// Check error expectations
 			if testCase.ExpectError && err == nil {

@@ -1,5 +1,0 @@
-{user_code}
-
-let s = {s}
-reverseString(s)
-console.log(s);

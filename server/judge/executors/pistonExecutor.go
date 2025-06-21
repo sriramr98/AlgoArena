@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/sriramr98/dsa_server/piston"
 	"github.com/sriramr98/dsa_server/utils"
 )
 
@@ -36,8 +37,7 @@ type PistonPayload struct {
 type PistonExecutor struct{}
 
 func (pe PistonExecutor) Execute(code string, config ExecutorConfig) (ExecutorOutput, error) {
-	apiBaseUrl := utils.GetEnv(PISTON_API_HOST_KEY, PISTON_LOCAL_HOST)
-	executeUrl := fmt.Sprintf("%s/api/v2/execute", apiBaseUrl)
+	executeUrl := fmt.Sprintf("%s/api/v2/execute", piston.PISTON_BASE_API_URL)
 
 	payload := PistonPayload{
 		Language: config.Language,
@@ -56,14 +56,18 @@ func (pe PistonExecutor) Execute(code string, config ExecutorConfig) (ExecutorOu
 		RunMemoryLimit:     -1,
 	}
 
-	jsonPayload, err := json.Marshal(payload)
+	buffer := &bytes.Buffer{}
+	encoder := json.NewEncoder(buffer)
+	encoder.SetEscapeHTML(false)
+	err := encoder.Encode(payload)
 	if err != nil {
 		utils.LogError(err)
 		return ExecutorOutput{}, err
 	}
 
-	log.Println("Payload:", string(jsonPayload))
-	request, err := http.NewRequest(http.MethodPost, executeUrl, bytes.NewReader(jsonPayload))
+	log.Printf("Encoded payload: %s", buffer.String())
+
+	request, err := http.NewRequest(http.MethodPost, executeUrl, buffer)
 	if err != nil {
 		return ExecutorOutput{}, err
 	}
@@ -93,14 +97,16 @@ func (pe PistonExecutor) Execute(code string, config ExecutorConfig) (ExecutorOu
 }
 
 func getLanguageVersion(language string) string {
-	switch language {
-	case "python":
-		return "3.12.0"
-	case "javascript":
-		return "20.11.1"
-	default:
+	_, config, found := utils.FindInMap(piston.SUPPORTED_LANGUAGES, func(supportedLang string, languageConfig piston.Language) bool {
+		return language == supportedLang
+	})
+
+	if !found {
+		log.Printf("Language %s not found in supported languages", language)
 		return ""
 	}
+
+	return config.Version
 }
 
 func getLanguageExtension(language string) string {

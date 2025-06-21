@@ -12,6 +12,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/sriramr98/dsa_server/controllers"
+	"github.com/sriramr98/dsa_server/piston"
 )
 
 // Not using router.Group because of https://github.com/gin-gonic/gin/issues/3546
@@ -39,10 +40,14 @@ func GetRouter() *gin.Engine {
 }
 
 func main() {
+	if err := piston.SetupLanguages(); err != nil {
+		log.Fatalf("Failed to setup languages: %v", err)
+	}
+
 	router := GetRouter()
 
 	srv := &http.Server{
-		Addr:    ":5000",
+		Addr:    ":8080",
 		Handler: router.Handler(),
 	}
 
