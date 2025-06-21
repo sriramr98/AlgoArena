@@ -7,8 +7,6 @@ import (
 )
 
 func TestFloatEvaluator_Evaluate(t *testing.T) {
-	evaluator := FloatEvaluator{}
-
 	tests := []struct {
 		name           string
 		output         string
@@ -89,7 +87,7 @@ func TestFloatEvaluator_Evaluate(t *testing.T) {
 				Expected: tt.expected,
 			}
 
-			result, err := evaluator.Evaluate(tt.output, testCase, tt.comparisonMode)
+			result, err := EvaluateFloat(tt.output, testCase, tt.comparisonMode)
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("FloatEvaluator.Evaluate() error = %v, wantErr %v", err, tt.wantErr)

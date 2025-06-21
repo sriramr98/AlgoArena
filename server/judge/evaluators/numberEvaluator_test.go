@@ -83,9 +83,8 @@ func TestIntegerEvaluator_Evaluate(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ne := IntegerEvaluator{}
 			stdout := tt.executorOutput
-			got, err := ne.Evaluate(stdout, tt.testCase, tt.comparisonMode)
+			got, err := EvaluateInteger(stdout, tt.testCase, tt.comparisonMode)
 
 			if tt.wantErr {
 				assert.Error(t, err)

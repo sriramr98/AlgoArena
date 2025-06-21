@@ -7,8 +7,6 @@ import (
 )
 
 func TestBooleanEvaluator_Evaluate(t *testing.T) {
-	evaluator := BooleanEvaluator{}
-
 	tests := []struct {
 		name           string
 		output         string
@@ -73,7 +71,7 @@ func TestBooleanEvaluator_Evaluate(t *testing.T) {
 				Expected: tt.expected,
 			}
 
-			result, err := evaluator.Evaluate(tt.output, testCase, tt.comparisonMode)
+			result, err := EvaluateBool(tt.output, testCase, tt.comparisonMode)
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("BooleanEvaluator.Evaluate() error = %v, wantErr %v", err, tt.wantErr)

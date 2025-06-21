@@ -13,23 +13,21 @@ type EvaluatorResult struct {
 	Error          error
 }
 
-type Evaluator interface {
-	Evaluate(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error)
-}
+type Evaluator func(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error)
 
 func GetEvaluator(problem problems.Problem) (Evaluator, error) {
 	var defaultEval Evaluator
 	switch problem.Output.Type {
 	case problems.ArrayType:
-		return ArrayEvaluator{}, nil
+		return EvaluateArray, nil
 	case problems.NumberType:
-		return IntegerEvaluator{}, nil
+		return EvaluateInteger, nil
 	case problems.FloatType:
-		return FloatEvaluator{}, nil
+		return EvaluateFloat, nil
 	case problems.StringType:
-		return StringEvaluator{}, nil
+		return EvaluateString, nil
 	case problems.BooleanType:
-		return BooleanEvaluator{}, nil
+		return EvaluateBool, nil
 	default:
 		return defaultEval, fmt.Errorf("no evaluator found for output type %s", problem.Output.Type)
 	}

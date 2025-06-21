@@ -7,8 +7,6 @@ import (
 )
 
 func TestStringEvaluator_Evaluate(t *testing.T) {
-	evaluator := StringEvaluator{}
-
 	tests := []struct {
 		name           string
 		output         string
@@ -73,7 +71,7 @@ func TestStringEvaluator_Evaluate(t *testing.T) {
 				Expected: tt.expected,
 			}
 
-			result, err := evaluator.Evaluate(tt.output, testCase, tt.comparisonMode)
+			result, err := EvaluateString(tt.output, testCase, tt.comparisonMode)
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("StringEvaluator.Evaluate() error = %v, wantErr %v", err, tt.wantErr)

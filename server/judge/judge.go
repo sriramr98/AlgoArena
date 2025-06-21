@@ -76,7 +76,7 @@ func JudgeProblem(problem problems.Problem, userCode string, language string, no
 
 		output := strings.TrimSpace(executionResult.Run.Stdout)
 
-		evaluationResult, err := evaluator.Evaluate(output, testCase, problem.ComparisonMode)
+		evaluationResult, err := evaluator(output, testCase, problem.ComparisonMode)
 		if err != nil {
 			utils.LogError(err)
 			return judgeResult, err

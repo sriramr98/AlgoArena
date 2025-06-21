@@ -8,9 +8,7 @@ import (
 	"github.com/sriramr98/dsa_server/problems"
 )
 
-type FloatEvaluator struct{}
-
-func (fe FloatEvaluator) Evaluate(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
+func EvaluateFloat(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
 	// Convert the string to a float64
 	actualResult, err := strconv.ParseFloat(strings.TrimSpace(output), 64)
 	if err != nil {

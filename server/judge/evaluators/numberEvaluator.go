@@ -8,9 +8,7 @@ import (
 	"github.com/sriramr98/dsa_server/problems"
 )
 
-type IntegerEvaluator struct{}
-
-func (ne IntegerEvaluator) Evaluate(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
+func EvaluateInteger(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
 	actualResult, err := strconv.Atoi(strings.TrimSpace(output))
 	if err != nil {
 		return EvaluatorResult{}, err

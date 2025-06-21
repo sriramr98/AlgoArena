@@ -7,9 +7,7 @@ import (
 	"github.com/sriramr98/dsa_server/problems"
 )
 
-type StringEvaluator struct{}
-
-func (se StringEvaluator) Evaluate(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
+func EvaluateString(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
 	// Trim any trailing newlines or whitespace that might be added by the execution environment
 	expected, ok := testCase.Expected.(string)
 	if !ok {

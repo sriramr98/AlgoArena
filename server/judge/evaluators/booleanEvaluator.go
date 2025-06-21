@@ -8,9 +8,7 @@ import (
 	"github.com/sriramr98/dsa_server/problems"
 )
 
-type BooleanEvaluator struct{}
-
-func (be BooleanEvaluator) Evaluate(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
+func EvaluateBool(output string, testCase problems.TestCase, comparisonMode problems.ComparisonMode) (EvaluatorResult, error) {
 	// Trim any whitespace and convert to lowercase for comparison
 	actualResultStr := strings.ToLower(strings.TrimSpace(output))
 

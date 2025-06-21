@@ -300,9 +300,8 @@ func TestArrayEvaluatorEvaluate(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.Name, func(t *testing.T) {
-			evaluator := ArrayEvaluator{}
 			stdout := testCase.ExecOutput
-			result, err := evaluator.Evaluate(stdout, testCase.TestCase, testCase.ComparisonMode)
+			result, err := EvaluateArray(stdout, testCase.TestCase, testCase.ComparisonMode)
 
 			// Check error expectations
 			if testCase.ExpectError && err == nil {
