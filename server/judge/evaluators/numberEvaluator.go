@@ -1,7 +1,7 @@
 package evaluators
 
 import (
-	"errors"
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -14,17 +14,19 @@ func EvaluateInteger(output string, testCase problems.TestCase, comparisonMode p
 		return EvaluatorResult{}, err
 	}
 
-	expected, ok := testCase.Expected.(int)
+	// We first cast to float and then to it because this comes from a json input which always maps numbers to float64
+	expected, ok := testCase.Expected.(float64)
+
 	if !ok {
-		return EvaluatorResult{}, errors.New("expected data type doesn't match input data type")
+		return EvaluatorResult{}, fmt.Errorf("expected data type doesn't match input data type")
 	}
 
-	areEquals := expected == actualResult
+	areEquals := int(expected) == actualResult
 
 	return EvaluatorResult{
 		Passed:         areEquals,
 		ActualOutput:   actualResult,
-		ExpectedOutput: expected,
+		ExpectedOutput: int(expected),
 		Error:          nil,
 	}, nil
 }

@@ -22,7 +22,7 @@ func TestIntegerEvaluator_Evaluate(t *testing.T) {
 			name:           "successful evaluation with matching values",
 			executorOutput: "42",
 			testCase: problems.TestCase{
-				Expected: 42,
+				Expected: 42.0,
 			},
 			want: EvaluatorResult{
 				Passed:         true,
@@ -36,7 +36,7 @@ func TestIntegerEvaluator_Evaluate(t *testing.T) {
 			name:           "successful evaluation with non-matching values",
 			executorOutput: "43",
 			testCase: problems.TestCase{
-				Expected: 42,
+				Expected: 42.0,
 			},
 			want: EvaluatorResult{
 				Passed:         false,
@@ -50,7 +50,7 @@ func TestIntegerEvaluator_Evaluate(t *testing.T) {
 			name:           "successful evaluation with trailing newline",
 			executorOutput: "42\n",
 			testCase: problems.TestCase{
-				Expected: 42,
+				Expected: 42.0,
 			},
 			want: EvaluatorResult{
 				Passed:         true,
@@ -64,7 +64,7 @@ func TestIntegerEvaluator_Evaluate(t *testing.T) {
 			name:           "invalid stdout - not a number",
 			executorOutput: "not a number",
 			testCase: problems.TestCase{
-				Expected: 42,
+				Expected: 42.0,
 			},
 			want:    EvaluatorResult{},
 			wantErr: true,
