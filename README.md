@@ -29,9 +29,10 @@ A simple LeetCode clone with a React frontend and Express.js backend.
 ### Prerequisites
 
 - Node.js
-- npm
 - Docker and Docker Compose
 - Golang
+- Python3
+- [uv](https://github.com/astral-sh/uv)
 
 ### Installation
 

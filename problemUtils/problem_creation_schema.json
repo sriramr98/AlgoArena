@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Problem Set",
+  "description": "A collection of programming problems.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "title": "Problem",
+    "description": "A single programming problem with its details.",
+    "properties": {
+      "title": {
+        "description": "The title of the programming problem.",
+        "type": "string"
+      },
+      "difficulty": {
+        "description": "The difficulty level of the problem.",
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "Easy",
+          "Medium",
+          "Hard",
+          null
+        ]
+      },
+      "ques_topic": {
+        "description": "An array of specific topics or techniques related to the question.",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "topic": {
+        "description": "The main category or data structure the problem belongs to.",
+        "type": "string",
+        "enum": [
+          "Array",
+          "Binary",
+          "Dynamic Programming",
+          "Graph",
+          "Heap",
+          "Interval",
+          "Linked List",
+          "Matrix",
+          "String",
+          "Tree"
+        ]
+      }
+    },
+    "required": [
+      "title",
+      "difficulty",
+      "topic"
+    ]
+  }
+}

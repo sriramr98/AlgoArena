@@ -75,5 +75,29 @@
       },
       "expected": [0, 3]
     }
+  ],
+  "solutions": [
+    {
+      "id": 1,
+      "title": "Brute Force",
+      "description": "A simple brute force solution that checks every pair of numbers to find the indices that sum to the target.",
+      "timeComlexity": "O(n^2)",
+      "spaceComplexity": "O(1)",
+      "solution": {
+        "python": "ZGVmIHR3b1N1bShzZWxmLCBudW1zOiBMaXN0W2ludF0sIHRhcmdldDogaW50KSAtPiBMaXN0W2ludF06CiAgICAgICAgZm9yIGkgaW4gcmFuZ2UobGVuKG51bXMpKToKICAgICAgICAgICAgZm9yIGogaW4gcmFuZ2UoaSArIDEsIGxlbihudW1zKSk6CiAgICAgICAgICAgICAgICBpZiBudW1zW2ldICsgbnVtc1tqXSA9PSB0YXJnZXQ6CiAgICAgICAgICAgICAgICAgICAgcmV0dXJuIFtpLCBqXQogICAgICAgIHJldHVybiBbXQ==",
+        "javascript": "ZnVuY3Rpb24gdHdvU3VtKG51bXMsIHRhcmdldCkgewogICAgICAgIGZvciAobGV0IGkgPSAwOyBpIDwgbnVtcy5sZW5ndGg7IGkrKykgewogICAgICAgICAgICBmb3IgKGxldCBqID0gaSArIDE7IGogPCBudW1zLmxlbmd0aDsgaisrKSB7CiAgICAgICAgICAgICAgICBpZiAobnVtc1tpXSArIG51bXNbal0gPT09IHRhcmdldCkgewogICAgICAgICAgICAgICAgICAgIHJldHVybiBbaSwgal07IAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIHJldHVybiBbXTsKICAgIH0="
+      }
+    },
+    {
+      "id": 2,
+      "title": "Hash Map",
+      "description": "A more efficient solution using a hash map to store the indices of the numbers, allowing for O(n) time complexity.",
+      "timeComlexity": "O(n)",
+      "spaceComplexity": "O(n)",
+      "solution": {  
+        "python": "ZGVmIHR3b1N1bShudW1zOiBMaXN0W2ludF0sIHRhcmdldDogaW50KSAtPiBMaXN0W2ludF06CiAgICBudW1fdG9faW5kZXggPSB7fQogICAgZm9yIGksIG51bSBpbiBlbnVtZXJhdGUobnVtcyk6CiAgICAgICAgY29tcGxlbWVudCA9IHRhcmdldCAtIG51bQogICAgICAgIGlmIGNvbXBsZW1lbnQgaW4gbnVtX3RvX2luZGV4OgogICAgICAgICAgICByZXR1cm4gW251bV90b19pbmRleFtjb21wbGVtZW50XSwgaV0KICAgICAgICBudW1fdG9faW5kZXhbbnVtXSA9IGkKICAgIHJldHVybiBbXQ==",
+        "javascript": "ZnVuY3Rpb24gdHdvU3VtKG51bXMsIHRhcmdldCkgewogIGNvbnN0IG51bU1hcCA9IG5ldyBNYXAoKTsKICBmb3IgKGxldCBpID0gMDsgaSA8IG51bXMubGVuZ3RoOyBpKyspIHsKICAgIGNvbnN0IGNvbXBsZW1lbnQgPSB0YXJnZXQgLSBudW1zW2ldOwogICAgaWYgKG51bU1hcC5oYXMoY29tcGxlbWVudCkpIHsKICAgICAgcmV0dXJuIFtudW1NYXAuZ2V0KGNvbXBsZW1lbnQpLCBpXTsKICAgIH0KICAgIG51bU1hcC5zZXQobnVtc1tpXSwgaSk7CiAgfQogIHJldHVybiBbXTsKfQ=="
+      }
+    }
   ]
 }
