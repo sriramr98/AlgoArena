@@ -1,0 +1,717 @@
+[
+  {
+    "title": "2Sum Problem",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "sorting",
+      "data-structure",
+      "two-pointers"
+    ],
+    "topic": "Array"
+  },
+  {
+    "title": "Best Time to Buy and Sell Stock |(DP-35)",
+    "difficulty": "Hard",
+    "tags": [
+      "arrays",
+      "data-structure",
+      "recursion",
+      "dynamic-programming"
+    ],
+    "topic": "Array"
+  },
+  {
+    "title": "Contains Duplicate",
+    "difficulty": "Easy",
+    "tags": [
+      "arrays",
+      "hashing",
+      "sorting",
+      "data-structure"
+    ],
+    "topic": "Array"
+  },
+  {
+    "title": "Product of Array Except Self",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "data-structure"
+    ],
+    "topic": "Array"
+  },
+  {
+    "title": "Kadane's Algorithm, maximum subarray sum",
+    "difficulty": "Easy",
+    "tags": [
+      "arrays",
+      "data-structure"
+    ],
+    "topic": "Array"
+  },
+  {
+    "title": "Maximum Product Subarray",
+    "difficulty": "Easy",
+    "tags": [
+      "arrays",
+      "data-structure"
+    ],
+    "topic": "Array"
+  },
+  {
+    "title": "Find minimum in Rotated Sorted Array",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "data-structure"
+    ],
+    "topic": "Array"
+  },
+  {
+    "title": "Search in Rotated Sorted Array I",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "binary-search"
+    ],
+    "topic": "Array"
+  },
+  {
+    "title": "3 sum",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "sorting",
+      "two-pointers",
+      "data-structure",
+      "hashing"
+    ],
+    "topic": "Array"
+  },
+  {
+    "title": "Container with most water",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "two-pointers",
+      "greedy",
+      "data-structure"
+    ],
+    "topic": "Array"
+  },
+  {
+    "title": "Sum of Two Integers",
+    "difficulty": "Easy",
+    "tags": [
+      "maths",
+      "data-structure"
+    ],
+    "topic": "Binary"
+  },
+  {
+    "title": "Number of 1 Bits",
+    "difficulty": "Easy",
+    "tags": [
+      "bit-manipulation",
+      "data-structure"
+    ],
+    "topic": "Binary"
+  },
+  {
+    "title": "Counting Bits",
+    "difficulty": "Easy",
+    "tags": [
+      "bit-manipulation"
+    ],
+    "topic": "Binary"
+  },
+  {
+    "title": "Find missing number in an array",
+    "difficulty": "Easy",
+    "tags": [
+      "arrays",
+      "data-structure",
+      "binary-search",
+      "hashing"
+    ],
+    "topic": "Binary"
+  },
+  {
+    "title": "Reverse Bits",
+    "difficulty": "Easy",
+    "tags": [
+      "bit-manipulation",
+      "data-structure"
+    ],
+    "topic": "Binary"
+  },
+  {
+    "title": "Climbing Stars",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "dynamic-programming",
+      "data-structure",
+      "recursion"
+    ],
+    "topic": "Dynamic Programming"
+  },
+  {
+    "title": "Coin change",
+    "difficulty": "Hard",
+    "tags": [
+      "dynamic-programming",
+      "data-structure",
+      "recursion",
+      "arrays"
+    ],
+    "topic": "Dynamic Programming"
+  },
+  {
+    "title": "Longest Increasing Subsequence",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "binary-search",
+      "dynamic-programming",
+      "data-structure"
+    ],
+    "topic": "Dynamic Programming"
+  },
+  {
+    "title": "Longest Common Subsequence",
+    "difficulty": "Medium",
+    "tags": [
+      "string",
+      "dynamic-programming",
+      "data-structure"
+    ],
+    "topic": "Dynamic Programming"
+  },
+  {
+    "title": "Word Break",
+    "difficulty": null,
+    "topic": "Dynamic Programming"
+  },
+  {
+    "title": "Combination Sum",
+    "difficulty": "Medium",
+    "tags": [
+      "recursion",
+      "data-structure",
+      "arrays"
+    ],
+    "topic": "Dynamic Programming"
+  },
+  {
+    "title": "Maximum sum of non-adjacent elements (DP 5)",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "recursion",
+      "data-structure",
+      "dynamic-programming"
+    ],
+    "topic": "Dynamic Programming"
+  },
+  {
+    "title": "House Robber (DP 6)",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "dynamic-programming",
+      "recursion",
+      "data-structure"
+    ],
+    "topic": "Dynamic Programming"
+  },
+  {
+    "title": "Decode Ways",
+    "difficulty": "Medium",
+    "tags": [
+      "string",
+      "data-structure"
+    ],
+    "topic": "Dynamic Programming"
+  },
+  {
+    "title": "Grid Unique Paths",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "recursion",
+      "dynamic-programming",
+      "data-structure"
+    ],
+    "topic": "Dynamic Programming"
+  },
+  {
+    "title": "Jump Game",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "dynamic-programming",
+      "greedy",
+      "data-structure"
+    ],
+    "topic": "Dynamic Programming"
+  },
+  {
+    "title": "Clone Graph",
+    "difficulty": "Hard",
+    "tags": [
+      "graph",
+      "data-structure"
+    ],
+    "topic": "Graph"
+  },
+  {
+    "title": "Course Schedule - I",
+    "difficulty": "Hard",
+    "tags": [
+      "graph",
+      "data-structure"
+    ],
+    "topic": "Graph"
+  },
+  {
+    "title": "Pacific Atlantic Water Flow",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "graph",
+      "data-structure"
+    ],
+    "topic": "Graph"
+  },
+  {
+    "title": "Number of islands(Do in Grid and Graph Both)",
+    "difficulty": "Hard",
+    "tags": [
+      "graph",
+      "data-structure"
+    ],
+    "topic": "Graph"
+  },
+  {
+    "title": "Longest Consecutive Sequence",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "hashing",
+      "data-structure"
+    ],
+    "topic": "Graph"
+  },
+  {
+    "title": "Alien dictionary",
+    "difficulty": "Hard",
+    "tags": [
+      "string",
+      "data-structure"
+    ],
+    "topic": "Graph"
+  },
+  {
+    "title": "Graph Valid Tree",
+    "difficulty": "Medium",
+    "tags": [
+      "graph",
+      "data-structure"
+    ],
+    "topic": "Graph"
+  },
+  {
+    "title": "Connected Components | Logic Explanation",
+    "difficulty": "Hard",
+    "tags": [
+      "graph",
+      "data-structure"
+    ],
+    "topic": "Graph"
+  },
+  {
+    "title": "Insert Interval",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "data-structure"
+    ],
+    "topic": "Interval"
+  },
+  {
+    "title": "Merge Intervals",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "sorting",
+      "data-structure"
+    ],
+    "topic": "Interval"
+  },
+  {
+    "title": "Non-overlapping Intervals",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "greedy",
+      "sorting",
+      "data-structure"
+    ],
+    "topic": "Interval"
+  },
+  {
+    "title": "Repeat and Missing Number",
+    "difficulty": "Hard",
+    "tags": [
+      "arrays",
+      "hashing",
+      "maths",
+      "data-structure"
+    ],
+    "topic": "Interval"
+  },
+  {
+    "title": "Meeting Rooms (Leetcode Premium).",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "data-structure",
+      "greedy"
+    ],
+    "topic": "Interval"
+  },
+  {
+    "title": "Meeting Rooms II (Leetcode Premium)",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "data-structure",
+      "greedy"
+    ],
+    "topic": "Interval"
+  },
+  {
+    "title": "Reverse a LinkedList",
+    "difficulty": "Easy",
+    "tags": [
+      "linked-list",
+      "data-structure"
+    ],
+    "topic": "Linked List"
+  },
+  {
+    "title": "Detect a cycle in Linked List",
+    "difficulty": "Medium",
+    "tags": [
+      "linked-list",
+      "data-structure"
+    ],
+    "topic": "Linked List"
+  },
+  {
+    "title": "Merge two sorted Linked List (use method used in mergeSort)",
+    "difficulty": null,
+    "topic": "Linked List"
+  },
+  {
+    "title": "Merge K sorted arrays",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "data-structure"
+    ],
+    "topic": "Linked List"
+  },
+  {
+    "title": "Remove N-th node from back of LinkedList",
+    "difficulty": "Medium",
+    "tags": [
+      "linked-list",
+      "two-pointers",
+      "data-structure"
+    ],
+    "topic": "Linked List"
+  },
+  {
+    "title": "Reorder List",
+    "difficulty": "Medium",
+    "tags": [
+      "linked-list",
+      "two-pointers",
+      "data-structure"
+    ],
+    "topic": "Linked List"
+  },
+  {
+    "title": "Set Matrix Zeros",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "data-structure"
+    ],
+    "topic": "Matrix"
+  },
+  {
+    "title": "Print the matrix in spiral manner",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "data-structure"
+    ],
+    "topic": "Matrix"
+  },
+  {
+    "title": "Rotate Matrix by 90 degrees",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "data-structure"
+    ],
+    "topic": "Matrix"
+  },
+  {
+    "title": "Word Search",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "data-structure",
+      "string"
+    ],
+    "topic": "Matrix"
+  },
+  {
+    "title": "Longest Substring Without Repeating Characters",
+    "difficulty": "Medium",
+    "tags": [
+      "string",
+      "data-structure"
+    ],
+    "topic": "String"
+  },
+  {
+    "title": "longest repeating character replacement",
+    "difficulty": "Medium",
+    "tags": [
+      "string",
+      "hashing"
+    ],
+    "topic": "String"
+  },
+  {
+    "title": "Minimum Window Substring",
+    "difficulty": "Hard",
+    "tags": [
+      "string",
+      "data-structure"
+    ],
+    "topic": "String"
+  },
+  {
+    "title": "Check for Anagrams",
+    "difficulty": "Easy",
+    "tags": [
+      "string",
+      "data-structure"
+    ],
+    "topic": "String"
+  },
+  {
+    "title": "Group Anagrams",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "hashing",
+      "string",
+      "sorting"
+    ],
+    "topic": "String"
+  },
+  {
+    "title": "Check for balanced paranthesis",
+    "difficulty": "Medium",
+    "tags": [
+      "stack",
+      "data-structure"
+    ],
+    "topic": "String"
+  },
+  {
+    "title": "Check Palindrome",
+    "difficulty": "Easy",
+    "tags": [
+      "maths",
+      "data-structure"
+    ],
+    "topic": "String"
+  },
+  {
+    "title": "Longest Palindromic Substring[Do it without DP]",
+    "difficulty": "Hard",
+    "tags": [
+      "string",
+      "data-structure"
+    ],
+    "topic": "String"
+  },
+  {
+    "title": "Palindromic Substrings",
+    "difficulty": "Medium",
+    "tags": [
+      "dynamic-programming",
+      "data-structure",
+      "string"
+    ],
+    "topic": "String"
+  },
+  {
+    "title": "Encode and Decode Strings (Leetcode Premium)",
+    "difficulty": "Medium",
+    "tags": [
+      "string",
+      "data-structure"
+    ],
+    "topic": "String"
+  },
+  {
+    "title": "Height of a Binary Tree",
+    "difficulty": "Medium",
+    "tags": [
+      "binary-tree",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "Check if two trees are identical or not",
+    "difficulty": "Medium",
+    "tags": [
+      "binary-tree",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "Invert/Flip Binary Tree (Create)",
+    "difficulty": "Easy",
+    "tags": [
+      "binary-tree",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "Maximum path sum",
+    "difficulty": "Hard",
+    "tags": [
+      "binary-tree",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "Level order Traversal / Level order traversal in spiral form",
+    "difficulty": "Easy",
+    "tags": [
+      "binary-tree",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "Serialize and deserialize Binary Tree",
+    "difficulty": "Hard",
+    "tags": [
+      "binary-tree",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "Subtree of Another Tree",
+    "difficulty": "Easy",
+    "tags": [
+      "binary-tree",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "Construct the Binary Tree from Postorder and Inorder Traversal",
+    "difficulty": "Hard",
+    "tags": [
+      "binary-tree",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "Check if a tree is a BST or BT",
+    "difficulty": "Medium",
+    "tags": [
+      "binary-tree",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "Find K-th smallest element in BST",
+    "difficulty": "Medium",
+    "tags": [
+      "binary-search-tree",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "Find LCA of two nodes in BST",
+    "difficulty": "Medium",
+    "tags": [
+      "binary-search-tree",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "Implement Trie (Prefix Tree)",
+    "difficulty": "Hard",
+    "tags": [
+      "trie",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "Implement Trie - 2 (Prefix Tree)",
+    "difficulty": "Hard",
+    "tags": [
+      "trie",
+      "data-structure"
+    ],
+    "topic": "Tree"
+  },
+  {
+    "title": "K most frequent elements",
+    "difficulty": "Medium",
+    "tags": [
+      "arrays",
+      "hashing",
+      "sorting",
+      "heap",
+      "data-structure"
+    ],
+    "topic": "Heap"
+  },
+  {
+    "title": "Find Median from Data Stream",
+    "difficulty": "Hard",
+    "tags": [
+      "two-pointers",
+      "sorting",
+      "heap",
+      "data-structure"
+    ],
+    "topic": "Heap"
+  }
+]

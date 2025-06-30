@@ -1,0 +1,203 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Problem Definition Schema",
+  "description": "Schema for validating problem definition JSON files, typically used for coding challenges.",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "difficulty",
+    "description",
+    "examples",
+    "constraints",
+    "input",
+    "output",
+    "functionName",
+    "executionMode",
+    "comparisonMode",
+    "testCases",
+    "solutions"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the problem."
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the problem."
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["Easy", "Medium", "Hard"],
+      "description": "The difficulty level of the problem."
+    },
+    "description": {
+      "type": "string",
+      "description": "A detailed description of the problem."
+    },
+    "examples": {
+      "type": "array",
+      "description": "Examples demonstrating the problem's input and expected output.",
+      "items": {
+        "type": "object",
+        "required": ["input", "output"],
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "String representation of the example input."
+          },
+          "output": {
+            "type": "string",
+            "description": "String representation of the example output."
+          },
+          "explanation": {
+            "type": "string",
+            "description": "Optional explanation for the example.",
+            "nullable": true
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "description": "Constraints on the input values.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "input": {
+      "type": "object",
+      "description": "Defines the structure and types of the input parameters.",
+      "patternProperties": {
+        "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+          "type": "object",
+          "required": ["type", "description"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["number", "string", "boolean", "array", "object"],
+              "description": "The data type of the input parameter."
+            },
+            "output": {
+              "type": "boolean",
+              "description": "Indicates if this input parameter is part of the output. This is only applicable for problems where the input is modified in-place and needs to be evaluated with the expected output."
+            },
+            "childType": {
+              "type": "object",
+              "description": "Required if 'type' is 'array', defines the type of array elements.",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["number", "string", "boolean", "array", "object"],
+                  "description": "The data type of the array elements."
+                }
+              },
+              "if": { "properties": { "type": { "const": "array" } } },
+              "then": { "required": ["childType"] },
+              "else": { "not": { "required": ["childType"] } },
+              "nullable": true
+            },
+            "description": {
+              "type": "string",
+              "description": "A description of the input parameter."
+            }
+          }
+        }
+      },
+      "minProperties": 1
+    },
+    "output": {
+      "type": "object",
+      "description": "Defines the structure and type of the expected output.",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["number", "string", "boolean", "array", "object"],
+          "description": "The data type of the output."
+        }
+      }
+    },
+    "functionName": {
+      "type": "string",
+      "description": "The name of the function to be implemented."
+    },
+    "executionMode": {
+      "type": "string",
+      "enum": ["return", "in-place"],
+      "description": "How the solution's output should be captured. If the execution mode is 'in-place', the input parameters may be modified, and the output will be derived from the modified inputs."
+    },
+    "comparisonMode": {
+      "type": "string",
+      "enum": ["ordered", "unordered"],
+      "description": "How the actual output should be compared to the expected output."
+    },
+    "testCases": {
+      "type": "array",
+      "description": "A list of test cases for the problem.",
+      "items": {
+        "type": "object",
+        "required": ["input", "expected"],
+        "properties": {
+          "input": {
+            "type": "object",
+            "description": "The input values for the test case, matching the 'input' schema."
+          },
+          "expected": {
+            "description": "The expected output for the test case.",
+            "anyOf": [
+              { "type": "string" },
+              { "type": "number" },
+              { "type": "boolean" },
+              { "type": "array" },
+              { "type": "object" }
+            ]
+          }
+        }
+      }
+    },
+    "solutions": {
+      "type": "array",
+      "description": "Various solutions for the problem, potentially with different complexities.",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "description", "timeComlexity", "spaceComplexity", "solution"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the solution."
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the solution (e.g., 'Brute Force', 'Hash Map')."
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the solution's approach."
+          },
+          "timeComlexity": {
+            "type": "string",
+            "description": "Time complexity of the solution (e.g., 'O(n)', 'O(n^2)')."
+          },
+          "spaceComplexity": {
+            "type": "string",
+            "description": "Space complexity of the solution (e.g., 'O(1)', 'O(n)')."
+          },
+          "solution": {
+            "type": "object",
+            "description": "Code for the solution in different programming languages (base64 encoded).",
+            "minProperties": 1,
+            "patternProperties": {
+              "^(python|javascript|java|cpp|go|rust)$": {
+                "type": "string",
+                "description": "Base64 encoded string of the solution code for a specific language."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
